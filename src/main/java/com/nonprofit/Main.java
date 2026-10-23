@@ -1,4 +1,4 @@
-package com.university;
+package com.nonprofit;
 
 public class Main {
     public static void main(String[] args) {
