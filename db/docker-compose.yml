@@ -1,0 +1,38 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: athar_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-athar_db}
+      MYSQL_USER: ${DB_USER:-member}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-Athar_123}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mysql_data_v2:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # phpMyAdmin Web GUI - Native 100% Zero-Click Auto-Login
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: athar_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "${PMA_PORT:-8080}:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: ${DB_USER:-member}
+      PMA_PASSWORD: ${DB_PASSWORD:-Athar_123}
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data_v2:

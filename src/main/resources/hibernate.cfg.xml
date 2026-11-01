@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database Driver -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+        <!-- Connection settings using variables loaded from .env -->
+        <property name="hibernate.connection.url">jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=true&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">${DB_USER}</property>
+        <property name="hibernate.connection.password">${DB_PASSWORD}</property>
+
+        <!-- JDBC connection pool settings -->
+        <property name="hibernate.connection.pool_size">5</property>
+
+        <!-- SQL dialect for MySQL / TiDB -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- SQL output logging -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.highlight_sql">true</property>
+
+        <!-- Schema management: automatically creates/updates database tables based on entity classes -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Registered Entity Classes -->
+        <mapping class="com.nonprofit.model.Donation"/>
+    </session-factory>
+</hibernate-configuration>
