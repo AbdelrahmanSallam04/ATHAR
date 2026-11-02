@@ -1,30 +1,15 @@
 package com.nonprofit;
 
-import com.nonprofit.model.Donation;
-import com.nonprofit.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import javafx.application.Application;
 
+/**
+ * Entry point. Launches JavaFX through a class that does not extend
+ * Application, which avoids "JavaFX runtime components are missing"
+ * when running from the classpath (VS Code / IntelliJ Run button).
+ */
 public class Main {
 
     public static void main(String[] args) {
-        Transaction tx = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-
-            // Create one Donation item with its name attribute
-            Donation donation = new Donation("summer Clothes Drive");
-            session.persist(donation);
-
-            tx.commit();
-            System.out.println("Successfully created and saved donation: " + donation);
-        } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            HibernateUtil.shutdown();
-        }
+        Application.launch(App.class, args);
     }
 }

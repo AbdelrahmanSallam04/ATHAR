@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nonprofit.controller.MoneyDonationController"
+      spacing="24">
+
+    <!-- ===== Page header ===== -->
+    <VBox spacing="4">
+        <Label text="Make a Money Donation" styleClass="h2"/>
+        <Label text="Support ATHAR's programs. Every pound leaves an impact — كل خير .. أثر" styleClass="caption"/>
+    </VBox>
+
+    <HBox spacing="24" alignment="TOP_LEFT" fillHeight="false">
+
+        <!-- ===== Left: form ===== -->
+        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+
+            <Label text="Donor details" styleClass="card-title"/>
+            <GridPane hgap="16" vgap="16">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50"/>
+                    <ColumnConstraints percentWidth="50"/>
+                </columnConstraints>
+
+                <VBox spacing="6" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                    <Label text="Full name *" styleClass="field-label"/>
+                    <TextField fx:id="donorNameField" promptText="e.g. Mona Ahmed"/>
+                    <Label fx:id="donorNameError" styleClass="error-text"/>
+                </VBox>
+                <VBox spacing="6" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                    <Label text="Email or phone" styleClass="field-label"/>
+                    <TextField fx:id="contactField" promptText="For your receipt (optional)"/>
+                </VBox>
+
+                <VBox spacing="6" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                    <Label text="Amount (EGP) *" styleClass="field-label"/>
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <TextField fx:id="amountField" promptText="0.00" prefWidth="200"/>
+                        <Button text="100" userData="100" styleClass="chip-button" onAction="#onQuickAmount"/>
+                        <Button text="250" userData="250" styleClass="chip-button" onAction="#onQuickAmount"/>
+                        <Button text="500" userData="500" styleClass="chip-button" onAction="#onQuickAmount"/>
+                        <Button text="1,000" userData="1000" styleClass="chip-button" onAction="#onQuickAmount"/>
+                    </HBox>
+                    <Label fx:id="amountError" styleClass="error-text"/>
+                </VBox>
+            </GridPane>
+
+            <Region styleClass="divider"/>
+
+            <Label text="Payment method" styleClass="card-title"/>
+            <fx:define>
+                <ToggleGroup fx:id="paymentMethodGroup"/>
+            </fx:define>
+            <HBox spacing="12">
+                <ToggleButton fx:id="cashOption" text="Cash" toggleGroup="$paymentMethodGroup"
+                              styleClass="method-card" HBox.hgrow="ALWAYS">
+                    <graphic><FontIcon iconLiteral="mdi2c-cash" iconSize="26"/></graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="checkOption" text="Check" toggleGroup="$paymentMethodGroup"
+                              styleClass="method-card" HBox.hgrow="ALWAYS">
+                    <graphic><FontIcon iconLiteral="mdi2c-checkbook" iconSize="26"/></graphic>
+                </ToggleButton>
+                <ToggleButton fx:id="onlineOption" text="Online card" toggleGroup="$paymentMethodGroup"
+                              styleClass="method-card" HBox.hgrow="ALWAYS">
+                    <graphic><FontIcon iconLiteral="mdi2c-credit-card-outline" iconSize="26"/></graphic>
+                </ToggleButton>
+            </HBox>
+            <Label fx:id="methodError" styleClass="error-text"/>
+
+            <!-- Check details -->
+            <GridPane fx:id="checkDetailsBox" hgap="16" vgap="16">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50"/>
+                    <ColumnConstraints percentWidth="50"/>
+                </columnConstraints>
+                <VBox spacing="6" GridPane.columnIndex="0">
+                    <Label text="Check number *" styleClass="field-label"/>
+                    <TextField fx:id="checkNumberField" promptText="4 to 12 digits"/>
+                </VBox>
+                <VBox spacing="6" GridPane.columnIndex="1">
+                    <Label text="Bank name *" styleClass="field-label"/>
+                    <TextField fx:id="bankNameField" promptText="e.g. CIB"/>
+                </VBox>
+            </GridPane>
+
+            <!-- Online card details -->
+            <VBox fx:id="onlineDetailsBox" spacing="16">
+                <GridPane hgap="16" vgap="16">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="25"/>
+                        <ColumnConstraints percentWidth="25"/>
+                    </columnConstraints>
+                    <VBox spacing="6" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                        <Label text="Card holder *" styleClass="field-label"/>
+                        <TextField fx:id="cardHolderField" promptText="Name on card"/>
+                    </VBox>
+                    <VBox spacing="6" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                        <Label text="Card number *" styleClass="field-label"/>
+                        <TextField fx:id="cardNumberField" promptText="1234 5678 9012 3456"/>
+                    </VBox>
+                    <VBox spacing="6" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                        <Label text="Expiry date *" styleClass="field-label"/>
+                        <TextField fx:id="expiryField" promptText="MM/YY"/>
+                    </VBox>
+                    <VBox spacing="6" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                        <Label text="CVV *" styleClass="field-label"/>
+                        <PasswordField fx:id="cvvField" promptText="123"/>
+                    </VBox>
+                </GridPane>
+                <Label text="Simulated payment: card details are only validated and are never stored."
+                       styleClass="alert-banner, info" wrapText="true">
+                    <graphic><FontIcon iconLiteral="mdi2l-lock-outline" iconSize="18"/></graphic>
+                </Label>
+            </VBox>
+
+            <Label fx:id="paymentErrorBanner" styleClass="alert-banner, danger" wrapText="true">
+                <graphic><FontIcon iconLiteral="mdi2a-alert-circle-outline" iconSize="18"/></graphic>
+            </Label>
+        </VBox>
+
+        <!-- ===== Right: summary ===== -->
+        <VBox styleClass="card, card-cream" prefWidth="340" minWidth="300" maxWidth="360">
+            <Label text="Donation summary" styleClass="card-title"/>
+
+            <HBox>
+                <Label text="Donor" styleClass="summary-key"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="summaryDonor" text="—" styleClass="summary-value"/>
+            </HBox>
+            <HBox>
+                <Label text="Payment method" styleClass="summary-key"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="summaryMethod" text="Not selected" styleClass="summary-value"/>
+            </HBox>
+
+            <Region styleClass="divider"/>
+
+            <VBox spacing="2">
+                <Label text="TOTAL" styleClass="stat-label"/>
+                <Label fx:id="summaryTotal" text="EGP 0.00" styleClass="summary-total"/>
+            </VBox>
+
+            <Button fx:id="donateButton" text="Donate now" defaultButton="true" maxWidth="Infinity"
+                    styleClass="btn-accent" onAction="#onDonate"/>
+            <Label text="A receipt is issued as soon as the payment is completed." styleClass="caption"
+                   wrapText="true"/>
+        </VBox>
+    </HBox>
+</VBox>

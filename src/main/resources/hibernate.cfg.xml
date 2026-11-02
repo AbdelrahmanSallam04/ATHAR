@@ -27,6 +27,9 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Registered Entity Classes -->
+        <mapping class="com.nonprofit.model.User"/>
+        <mapping class="com.nonprofit.model.Donor"/>
         <mapping class="com.nonprofit.model.Donation"/>
+        <mapping class="com.nonprofit.model.MoneyDonation"/>
     </session-factory>
 </hibernate-configuration>

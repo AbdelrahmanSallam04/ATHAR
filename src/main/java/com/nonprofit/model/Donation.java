@@ -2,46 +2,46 @@ package com.nonprofit.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
+/**
+ * Base class for all donation types (money, food, clothes).
+ */
 @Entity
 @Table(name = "donation")
-public class Donation {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Donation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "donation_id")
+    protected Long donationId;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "donor_id", nullable = false)
+    protected Donor donor;
 
-    public Donation() {
+    @Column(name = "donated_at", nullable = false)
+    protected LocalDateTime donatedAt = LocalDateTime.now();
+
+    protected Donation() {
     }
 
-    public Donation(String name) {
-        this.name = name;
+    public abstract Receipt processDonation();
+
+    public Long getDonationId() {
+        return donationId;
     }
 
-    public Long getId() {
-        return id;
+    public Donor getDonor() {
+        return donor;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDonor(Donor donor) {
+        this.donor = donor;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Donation{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public LocalDateTime getDonatedAt() {
+        return donatedAt;
     }
 }
-

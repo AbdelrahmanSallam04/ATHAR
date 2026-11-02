@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.nonprofit.controller.ShellController"
+            styleClass="app-shell">
+
+    <!-- ===== Sidebar ===== -->
+    <left>
+        <VBox styleClass="sidebar">
+            <HBox styleClass="brand" alignment="CENTER_LEFT">
+                <StackPane>
+                    <ImageView fx:id="logoImage" fitWidth="52" fitHeight="52" preserveRatio="true" smooth="true" visible="false" managed="false"/>
+                    <Label fx:id="brandMark" text="أثر" styleClass="brand-mark"/>
+                </StackPane>
+                <VBox spacing="2" alignment="CENTER_LEFT">
+                    <Label text="ATHAR" styleClass="brand-title"/>
+                    <Label text="Non-Profit Management &amp; Impact Platform" styleClass="brand-sub"
+                           wrapText="true" maxWidth="140"/>
+                </VBox>
+            </HBox>
+
+            <Region styleClass="sidebar-separator"/>
+            <Label text="MAIN MENU" styleClass="sidebar-section"/>
+
+            <fx:define>
+                <ToggleGroup fx:id="navGroup"/>
+            </fx:define>
+
+            <ToggleButton text="Dashboard" userData="dashboard" toggleGroup="$navGroup" styleClass="sidebar-item">
+                <graphic><FontIcon iconLiteral="mdi2v-view-dashboard-outline" iconSize="20"/></graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="donationsNav" text="Donations" userData="donations" toggleGroup="$navGroup" styleClass="sidebar-item">
+                <graphic><FontIcon iconLiteral="mdi2h-hand-heart-outline" iconSize="20"/></graphic>
+            </ToggleButton>
+            <ToggleButton text="Volunteers" userData="volunteers" toggleGroup="$navGroup" styleClass="sidebar-item">
+                <graphic><FontIcon iconLiteral="mdi2a-account-group-outline" iconSize="20"/></graphic>
+            </ToggleButton>
+            <ToggleButton text="Events" userData="events" toggleGroup="$navGroup" styleClass="sidebar-item">
+                <graphic><FontIcon iconLiteral="mdi2c-calendar-star" iconSize="20"/></graphic>
+            </ToggleButton>
+            <ToggleButton text="Beneficiaries" userData="beneficiaries" toggleGroup="$navGroup" styleClass="sidebar-item">
+                <graphic><FontIcon iconLiteral="mdi2h-home-heart" iconSize="20"/></graphic>
+            </ToggleButton>
+            <ToggleButton text="Communications" userData="communications" toggleGroup="$navGroup" styleClass="sidebar-item">
+                <graphic><FontIcon iconLiteral="mdi2m-message-text-outline" iconSize="20"/></graphic>
+            </ToggleButton>
+            <ToggleButton text="Reports &amp; Impact" userData="reports" toggleGroup="$navGroup" styleClass="sidebar-item">
+                <graphic><FontIcon iconLiteral="mdi2c-chart-box-outline" iconSize="20"/></graphic>
+            </ToggleButton>
+            <ToggleButton text="Administration" userData="administration" toggleGroup="$navGroup" styleClass="sidebar-item">
+                <graphic><FontIcon iconLiteral="mdi2s-shield-account-outline" iconSize="20"/></graphic>
+            </ToggleButton>
+            <ToggleButton text="My Profile" userData="profile" toggleGroup="$navGroup" styleClass="sidebar-item">
+                <graphic><FontIcon iconLiteral="mdi2a-account-circle-outline" iconSize="20"/></graphic>
+            </ToggleButton>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <Region styleClass="sidebar-separator"/>
+
+            <!-- Placeholder until the login module provides the current user -->
+            <HBox styleClass="sidebar-user" alignment="CENTER_LEFT">
+                <Label text="G" styleClass="avatar"/>
+                <VBox>
+                    <Label text="Guest" styleClass="sidebar-user-name"/>
+                    <Label text="Not signed in" styleClass="sidebar-user-role"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- ===== Top bar + content ===== -->
+    <center>
+        <VBox>
+            <HBox styleClass="topbar">
+                <Label fx:id="pageTitle" styleClass="page-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="G" styleClass="avatar"/>
+            </HBox>
+
+            <StackPane VBox.vgrow="ALWAYS">
+                <ImageView fx:id="watermark" fitWidth="380" preserveRatio="true" opacity="0.06"
+                           mouseTransparent="true" visible="false" managed="false"
+                           StackPane.alignment="BOTTOM_RIGHT"/>
+                <ScrollPane fitToWidth="true" styleClass="content-scroll">
+                    <VBox fx:id="contentArea" styleClass="content-area"/>
+                </ScrollPane>
+            </StackPane>
+        </VBox>
+    </center>
+</BorderPane>
