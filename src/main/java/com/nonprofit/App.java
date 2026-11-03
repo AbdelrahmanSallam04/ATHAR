@@ -51,9 +51,4 @@ public class App extends Application {
     public void stop() {
         HibernateUtil.shutdown();
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
-

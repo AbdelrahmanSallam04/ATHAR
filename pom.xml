@@ -16,6 +16,8 @@
         <mysql.connector.version>9.1.0</mysql.connector.version>
         <javafx.version>21.0.5</javafx.version>
         <ikonli.version>12.3.1</ikonli.version>
+        <javafx.version>21.0.5</javafx.version>
+        <ikonli.version>12.3.1</ikonli.version>
     </properties>
 
     <dependencies>
@@ -38,6 +40,30 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.16</version>
+        </dependency>
+
+        <!-- JavaFX GUI -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- Icons (Material Design 2) -->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>${ikonli.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-materialdesign2-pack</artifactId>
+            <version>${ikonli.version}</version>
         </dependency>
 
         <!-- JavaFX GUI -->

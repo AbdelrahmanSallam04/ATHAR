@@ -43,6 +43,7 @@ public class ShellController {
 
         navGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (newToggle == null) {
+                // Keep one item always selected
                 navGroup.selectToggle(oldToggle);
             } else {
                 showScreen(newToggle);
@@ -75,7 +76,7 @@ public class ShellController {
         icon.setIconSize(44);
         Label title = new Label(moduleName + " is coming soon");
         title.getStyleClass().add("h3");
-        Label caption = new Label("This module is currently being developed by the ATHAR team.");
+        Label caption = new Label("This module is still being developed by the ATHAR team.");
         caption.getStyleClass().add("caption");
 
         VBox box = new VBox(icon, title, caption);
@@ -83,6 +84,10 @@ public class ShellController {
         return box;
     }
 
+    /**
+     * Shows the logo if athar-logo.png has been added to resources; otherwise keeps
+     * the text mark.
+     */
     private void loadLogo() {
         URL logoUrl = getClass().getResource(LOGO_PATH);
         if (logoUrl == null) {

@@ -35,5 +35,6 @@
         <mapping class="com.nonprofit.model.FoodDonation"/>
         <mapping class="com.nonprofit.model.ClothingItem"/>
         <mapping class="com.nonprofit.model.FoodItem"/>
+        <mapping class="com.nonprofit.model.MoneyDonation"/>
     </session-factory>
 </hibernate-configuration>

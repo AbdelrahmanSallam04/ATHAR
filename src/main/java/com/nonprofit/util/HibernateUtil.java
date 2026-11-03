@@ -34,12 +34,10 @@ public class HibernateUtil {
      * Reads key=value pairs from db/.env and sets them as Java System Properties.
      */
     private static void loadEnvFile() {
-        // Look inside db/.env first
-        File envFile = new File("db/.env");
-        if (!envFile.exists()) {
-            envFile = new File(".env");
-        }
-        if (!envFile.exists()) {
+        File envFile = findEnvFile();
+        if (envFile == null) {
+            System.err.println("Warning: db/.env not found (working directory: "
+                    + System.getProperty("user.dir") + ")");
             return;
         }
 
@@ -68,6 +66,34 @@ public class HibernateUtil {
         } catch (Exception e) {
             System.err.println("Warning: Could not read .env file: " + e.getMessage());
         }
+    }
+
+    /**
+     * Finds db/.env (or .env) by walking up from the compiled classes folder,
+     * then from the working directory, so the app runs from any folder.
+     */
+    private static File findEnvFile() {
+        File[] starts = new File[2];
+        try {
+            starts[0] = new File(HibernateUtil.class.getProtectionDomain()
+                    .getCodeSource().getLocation().toURI());
+        } catch (Exception ignored) {
+        }
+        starts[1] = new File(System.getProperty("user.dir"));
+
+        for (File start : starts) {
+            for (File dir = start; dir != null; dir = dir.getParentFile()) {
+                File candidate = new File(dir, "db/.env");
+                if (candidate.isFile()) {
+                    return candidate;
+                }
+                candidate = new File(dir, ".env");
+                if (candidate.isFile()) {
+                    return candidate;
+                }
+            }
+        }
+        return null;
     }
 
     public static SessionFactory getSessionFactory() {

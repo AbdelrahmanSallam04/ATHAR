@@ -341,31 +341,38 @@
     -fx-font-size: 13px;
     -fx-cursor: hand;
 }
+
 .radio-button .text,
 .check-box .text {
     -fx-fill: -athar-text;
 }
+
 .radio-button .radio {
     -fx-background-color: -athar-border, -athar-surface;
     -fx-background-insets: 0, 1;
     -fx-background-radius: 10px;
     -fx-padding: 3px;
 }
+
 .radio-button:selected .radio {
     -fx-background-color: -athar-navy, -athar-surface;
 }
+
 .radio-button:selected .dot {
     -fx-background-color: -athar-navy;
     -fx-background-insets: 0;
 }
+
 .check-box .box {
     -fx-background-color: -athar-border, -athar-surface;
     -fx-background-insets: 0, 1;
     -fx-background-radius: 4px;
 }
+
 .check-box:selected .box {
     -fx-background-color: -athar-navy;
 }
+
 .check-box:selected .mark {
     -fx-background-color: white;
 }

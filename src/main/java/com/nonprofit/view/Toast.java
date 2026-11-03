@@ -54,4 +54,3 @@ public final class Toast {
         life.play();
     }
 }
-

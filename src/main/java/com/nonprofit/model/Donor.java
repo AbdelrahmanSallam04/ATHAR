@@ -27,4 +27,3 @@ public class Donor extends User {
         return donationHistory;
     }
 }
-
