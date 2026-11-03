@@ -14,7 +14,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -31,74 +30,125 @@ public class InKindDonationController {
     private static final String ADD_NEW_ADDRESS_OPTION = "+ Add New Address...";
 
     // Header Donor Profile
-    @FXML private Label activeDonorName;
-    @FXML private Label activeDonorContact;
+    @FXML
+    private Label activeDonorName;
+    @FXML
+    private Label activeDonorContact;
 
     // Tab Bar
-    @FXML private ToggleButton clothesTab;
-    @FXML private ToggleButton foodTab;
+    @FXML
+    private ToggleButton clothesTab;
+    @FXML
+    private ToggleButton foodTab;
     private ToggleGroup categoryGroup;
 
     // Clothes Controls
-    @FXML private VBox clothesInputBox;
-    @FXML private ComboBox<String> clothingTypeCombo;
-    @FXML private ComboBox<String> clothingGenderCombo;
-    @FXML private ComboBox<String> clothingSizeCombo;
-    @FXML private Spinner<Integer> clothingQuantitySpinner;
-    @FXML private Button addClothingBtn;
+    @FXML
+    private VBox clothesInputBox;
+    @FXML
+    private ComboBox<String> clothingTypeCombo;
+    @FXML
+    private ComboBox<String> clothingGenderCombo;
+    @FXML
+    private ComboBox<String> clothingSizeCombo;
+    @FXML
+    private Spinner<Integer> clothingQuantitySpinner;
+    @FXML
+    private Button addClothingBtn;
 
     // Food Controls
-    @FXML private VBox foodInputBox;
-    @FXML private ComboBox<String> foodTypeCombo;
-    @FXML private Spinner<Integer> foodQuantitySpinner;
-    @FXML private CheckBox foodPerishableCheck;
-    @FXML private Button addFoodBtn;
+    @FXML
+    private VBox foodInputBox;
+    @FXML
+    private ComboBox<String> foodTypeCombo;
+    @FXML
+    private Spinner<Integer> foodQuantitySpinner;
+    @FXML
+    private CheckBox foodPerishableCheck;
+    @FXML
+    private Button addFoodBtn;
 
     // Dynamic Items Table
-    @FXML private Label itemsCardTitle;
-    @FXML private Label itemInputError;
-    @FXML private Label tableError;
-    @FXML private TableView<ItemEntry> itemsTable;
-    @FXML private TableColumn<ItemEntry, String> itemCategoryCol;
-    @FXML private TableColumn<ItemEntry, String> itemDescriptionCol;
-    @FXML private TableColumn<ItemEntry, Integer> itemQuantityCol;
-    @FXML private TableColumn<ItemEntry, Void> itemActionCol;
+    @FXML
+    private Label itemsCardTitle;
+    @FXML
+    private Label itemInputError;
+    @FXML
+    private Label tableError;
+    @FXML
+    private TableView<ItemEntry> itemsTable;
+    @FXML
+    private TableColumn<ItemEntry, String> itemCategoryCol;
+    @FXML
+    private TableColumn<ItemEntry, String> itemDescriptionCol;
+    @FXML
+    private TableColumn<ItemEntry, Integer> itemQuantityCol;
+    @FXML
+    private TableColumn<ItemEntry, Void> itemActionCol;
 
     // Fulfillment
-    @FXML private ToggleButton officeDropoffOption;
-    @FXML private ToggleButton courierPickupOption;
+    @FXML
+    private ToggleButton officeDropoffOption;
+    @FXML
+    private ToggleButton courierPickupOption;
     private ToggleGroup fulfillmentGroup;
-    @FXML private VBox officeNoticeBox;
-    @FXML private VBox courierAddressBox;
+    @FXML
+    private VBox officeNoticeBox;
+    @FXML
+    private VBox courierAddressBox;
 
     // Saved & New Address Controls
-    @FXML private ComboBox<String> savedAddressCombo;
-    @FXML private VBox newAddressForm;
-    @FXML private RadioButton homeTypeRadio;
-    @FXML private RadioButton officeTypeRadio;
-    @FXML private RadioButton otherTypeRadio;
+    @FXML
+    private ComboBox<String> savedAddressCombo;
+    @FXML
+    private VBox newAddressForm;
+    @FXML
+    private RadioButton homeTypeRadio;
+    @FXML
+    private RadioButton officeTypeRadio;
+    @FXML
+    private RadioButton otherTypeRadio;
     private ToggleGroup locationTypeGroup;
-    @FXML private TextField streetField;
-    @FXML private ComboBox<String> cityCombo;
-    @FXML private TextField buildingField;
-    @FXML private VBox floorContainer;
-    @FXML private TextField floorField;
-    @FXML private VBox apartmentContainer;
-    @FXML private TextField apartmentField;
-    @FXML private TextField notesField;
-    @FXML private Label streetError;
-    @FXML private Label buildingError;
-    @FXML private Label floorError;
-    @FXML private Label apartmentError;
+    @FXML
+    private TextField streetField;
+    @FXML
+    private ComboBox<String> cityCombo;
+    @FXML
+    private TextField buildingField;
+    @FXML
+    private VBox floorContainer;
+    @FXML
+    private TextField floorField;
+    @FXML
+    private VBox apartmentContainer;
+    @FXML
+    private TextField apartmentField;
+    @FXML
+    private TextField notesField;
+    @FXML
+    private Label streetError;
+    @FXML
+    private Label buildingError;
+    @FXML
+    private Label floorError;
+    @FXML
+    private Label apartmentError;
 
     // Summary Card
-    @FXML private Label summaryDonor;
-    @FXML private Label summaryFulfillment;
-    @FXML private Label summaryAddress;
-    @FXML private VBox summaryItemsBox;
-    @FXML private Label summaryTotalCount;
-    @FXML private Button submitButton;
-    @FXML private Label generalErrorBanner;
+    @FXML
+    private Label summaryDonor;
+    @FXML
+    private Label summaryFulfillment;
+    @FXML
+    private Label summaryAddress;
+    @FXML
+    private VBox summaryItemsBox;
+    @FXML
+    private Label summaryTotalCount;
+    @FXML
+    private Button submitButton;
+    @FXML
+    private Label generalErrorBanner;
 
     // State
     private Donor currentDonor;
@@ -161,7 +211,8 @@ public class InKindDonationController {
             showWhen(clothesInputBox, isClothes);
             showWhen(foodInputBox, !isClothes);
             itemsCardTitle.setText(isClothes ? "Clothing Items" : "Food Items");
-            // DO NOT clear currentItems! Items remain preserved across tabs until submitted.
+            // DO NOT clear currentItems! Items remain preserved across tabs until
+            // submitted.
         });
 
         showWhen(clothesInputBox, true);
@@ -173,8 +224,7 @@ public class InKindDonationController {
         clothingTypeCombo.getItems().addAll(
                 "T-Shirt", "Shirt / Blouse", "Pants / Trousers", "Jacket / Coat",
                 "Dress / Abaya", "Sweater / Hoodie", "Shoes / Footwear",
-                "Baby & Kids Clothes", "Blanket / Winter Wear"
-        );
+                "Baby & Kids Clothes", "Blanket / Winter Wear");
         clothingTypeCombo.getSelectionModel().selectFirst();
 
         clothingGenderCombo.getItems().addAll("Men", "Women", "Kids", "Unisex");
@@ -184,8 +234,7 @@ public class InKindDonationController {
         clothingSizeCombo.getSelectionModel().select("M");
 
         clothingQuantitySpinner.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1)
-        );
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1));
 
         // Food Combos (Package size baked in)
         foodTypeCombo.getItems().addAll(
@@ -201,19 +250,16 @@ public class InKindDonationController {
                 "Cooked Meals (Ready Meal Box)",
                 "Fresh Produce (Box / kg)",
                 "Baby Formula & Milk (Can / Pack)",
-                "Dates (Pack / Box)"
-        );
+                "Dates (Pack / Box)");
         foodTypeCombo.getSelectionModel().selectFirst();
 
         foodQuantitySpinner.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 500, 1)
-        );
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 500, 1));
 
         // Cities
         cityCombo.getItems().addAll(
                 "Cairo", "Giza", "Heliopolis", "Nasr City", "New Cairo / 5th Settlement",
-                "Maadi", "6th of October", "Sheikh Zayed", "Alexandria"
-        );
+                "Maadi", "6th of October", "Sheikh Zayed", "Alexandria");
         cityCombo.getSelectionModel().select("Cairo");
     }
 
@@ -310,8 +356,8 @@ public class InKindDonationController {
     }
 
     private void setupLiveSummaryAndValidation() {
-        for (Label label : new Label[]{itemInputError, tableError, streetError,
-                buildingError, floorError, apartmentError, generalErrorBanner}) {
+        for (Label label : new Label[] { itemInputError, tableError, streetError,
+                buildingError, floorError, apartmentError, generalErrorBanner }) {
             label.managedProperty().bind(label.textProperty().isNotEmpty());
             label.visibleProperty().bind(label.managedProperty());
         }
@@ -436,8 +482,7 @@ public class InKindDonationController {
                         buildingField.getText().trim(),
                         floorField.getText().trim(),
                         apartmentField.getText().trim(),
-                        notesField.getText().trim()
-                );
+                        notesField.getText().trim());
             }
         }
 
@@ -463,8 +508,7 @@ public class InKindDonationController {
             @Override
             protected Receipt call() {
                 return donationService.submitInKindDonations(
-                        currentDonor, clothingList, foodList, method, finalAddress
-                );
+                        currentDonor, clothingList, foodList, method, finalAddress);
             }
         };
 
