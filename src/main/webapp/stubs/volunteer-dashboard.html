@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volunteer Portal — ATHAR Impact Platform</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">أثر</div>
+        <div>
+          <div class="brand-title">ATHAR</div>
+          <div class="brand-sub">Volunteer Portal</div>
+        </div>
+      </div>
+
+      <div class="sidebar-separator"></div>
+
+      <div class="sidebar-section">Main Menu</div>
+      <nav class="sidebar-nav">
+        <a href="#" class="sidebar-item active">
+          <span>📊</span>
+          <span>Overview</span>
+        </a>
+        <a href="#" class="sidebar-item">
+          <span>📅</span>
+          <span>Open Tasks</span>
+        </a>
+        <a href="#" class="sidebar-item">
+          <span>📝</span>
+          <span>My Applications</span>
+        </a>
+        <a href="#" class="sidebar-item">
+          <span>🎓</span>
+          <span>Certificates</span>
+        </a>
+      </nav>
+
+      <!-- User Profile at bottom -->
+      <div class="sidebar-user">
+        <div id="userAvatar" class="avatar">V</div>
+        <div class="sidebar-user-info">
+          <div id="userName" class="sidebar-user-name">Volunteer User</div>
+          <div id="userRole" class="sidebar-user-role">Volunteer</div>
+        </div>
+        <button id="logoutBtn" class="btn-ghost" title="Logout" style="color: rgba(255,255,255,0.7); padding: 4px 8px; font-size: 16px;">🚪</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <h2 class="h3">Volunteer Hub</h2>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="badge badge-gold">Active Volunteer</span>
+        </div>
+      </header>
+
+      <div class="content-area fade-in">
+        
+        <!-- Welcome Banner -->
+        <div class="card card-cream" style="border-left: 4px solid var(--athar-gold);">
+          <h1 class="h2" style="margin-bottom: 6px;">Welcome to ATHAR, <span id="welcomeName">Dedicated Volunteer</span>!</h1>
+          <p class="body-text muted">Thank you for dedicating your time, skills, and energy to support humanitarian causes.</p>
+        </div>
+
+        <!-- Metric Stubs -->
+        <div class="stats-grid">
+          <div class="stat-card gold">
+            <span class="stat-label">Logged Hours</span>
+            <span class="stat-value">0 hrs</span>
+            <span class="caption">Verified volunteer service</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Assigned Tasks</span>
+            <span class="stat-value">0</span>
+            <span class="caption">Current active missions</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Certificates Issued</span>
+            <span class="stat-value">0</span>
+            <span class="caption">Recognition & awards</span>
+          </div>
+        </div>
+
+        <!-- Module Stub Placeholder -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="card-title">Volunteer Tracking Module (Scheduled Next)</h3>
+            <span class="badge badge-info">Module Stub</span>
+          </div>
+          <div class="divider"></div>
+          <p class="body-text" style="margin-bottom: 12px;">
+            The <strong>Volunteer Management</strong> module (skills matching, event task assignments, and hours logging) will be integrated in the upcoming development phase.
+          </p>
+          <div class="alert-banner info" style="display: block;">
+            Your Volunteer record, registered skills, and preferences are securely persisted in the <code>volunteers</code>, <code>volunteer_skills</code>, and <code>users</code> database tables.
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="../js/stub-dashboard.js"></script>
+</body>
+</html>

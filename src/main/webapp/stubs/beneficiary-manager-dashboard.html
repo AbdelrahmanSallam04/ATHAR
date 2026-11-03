@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beneficiary Manager Portal — ATHAR Impact Platform</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">أثر</div>
+        <div>
+          <div class="brand-title">ATHAR</div>
+          <div class="brand-sub">Aid Administrator</div>
+        </div>
+      </div>
+
+      <div class="sidebar-separator"></div>
+
+      <div class="sidebar-section">Administration</div>
+      <nav class="sidebar-nav">
+        <a href="#" class="sidebar-item active">
+          <span>📊</span>
+          <span>Overview</span>
+        </a>
+        <a href="#" class="sidebar-item">
+          <span>👥</span>
+          <span>Beneficiaries</span>
+        </a>
+        <a href="#" class="sidebar-item">
+          <span>📑</span>
+          <span>Needs Assessment</span>
+        </a>
+        <a href="#" class="sidebar-item">
+          <span>📈</span>
+          <span>Impact Reports</span>
+        </a>
+      </nav>
+
+      <!-- User Profile at bottom -->
+      <div class="sidebar-user">
+        <div id="userAvatar" class="avatar">M</div>
+        <div class="sidebar-user-info">
+          <div id="userName" class="sidebar-user-name">Beneficiary Manager</div>
+          <div id="userRole" class="sidebar-user-role">Aid Administrator</div>
+        </div>
+        <button id="logoutBtn" class="btn-ghost" title="Logout" style="color: rgba(255,255,255,0.7); padding: 4px 8px; font-size: 16px;">🚪</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <h2 class="h3">Beneficiary & Resource Allocation Management</h2>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="badge badge-gold">Staff Access</span>
+        </div>
+      </header>
+
+      <div class="content-area fade-in">
+        
+        <!-- Welcome Banner -->
+        <div class="card card-cream" style="border-left: 4px solid var(--athar-gold);">
+          <h1 class="h2" style="margin-bottom: 6px;">Welcome, <span id="welcomeName">Aid Administrator</span>!</h1>
+          <p class="body-text muted">Oversee aid distribution, evaluate beneficiary requests, allocate resources, and generate decorator-driven impact reports.</p>
+        </div>
+
+        <!-- Metric Stubs -->
+        <div class="stats-grid">
+          <div class="stat-card gold">
+            <span class="stat-label">Registered Beneficiaries</span>
+            <span class="stat-value">0</span>
+            <span class="caption">Families and individuals</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Pending Needs</span>
+            <span class="stat-value">0</span>
+            <span class="caption">Awaiting verification</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Generated Reports</span>
+            <span class="stat-value">0</span>
+            <span class="caption">Auditing & donor impact</span>
+          </div>
+        </div>
+
+        <!-- Module Stub Placeholder -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="card-title">Beneficiary & Report Decorator Module (Scheduled Next)</h3>
+            <span class="badge badge-info">Module Stub</span>
+          </div>
+          <div class="divider"></div>
+          <p class="body-text" style="margin-bottom: 12px;">
+            The <strong>Beneficiary Allocation & Decorator Reporting</strong> subsystem (generating customized impact reports with needs, received resources, and coverage summaries) will be added in upcoming modules.
+          </p>
+          <div class="alert-banner info" style="display: block;">
+            Your administrator account is stored in the <code>beneficiary_managers</code> and <code>users</code> database tables.
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="../js/stub-dashboard.js"></script>
+</body>
+</html>
