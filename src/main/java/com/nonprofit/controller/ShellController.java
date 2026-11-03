@@ -29,7 +29,7 @@ public class ShellController {
 
     // Screens that exist so far: navigation key -> FXML file
     private static final Map<String, String> SCREENS = Map.of(
-            "donations", "/com/nonprofit/view/money-donation.fxml");
+            "donations", "/com/nonprofit/view/donation-types.fxml");
 
     @FXML
     private ToggleGroup navGroup;
