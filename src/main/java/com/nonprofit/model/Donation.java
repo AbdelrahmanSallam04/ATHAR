@@ -1,47 +1,82 @@
 package com.nonprofit.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+/**
+ * Base abstract class for all donation types (Money, Food, Clothes).
+ */
 @Entity
 @Table(name = "donation")
-public class Donation {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Donation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "donation_id")
+    protected Long donationId;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "donor_id", nullable = false)
+    protected Donor donor;
 
-    public Donation() {
+    @Column(name = "donated_at", nullable = false)
+    protected LocalDateTime donatedAt = LocalDateTime.now();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    protected DonationStatus status = DonationStatus.PENDING;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "fulfillment_method")
+    protected FulfillmentMethod fulfillmentMethod = FulfillmentMethod.OFFICE_DROPOFF;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id")
+    protected Address pickupAddress;
+
+    protected Donation() {
     }
 
-    public Donation(String name) {
-        this.name = name;
+    public abstract Receipt processDonation();
+
+    public Long getDonationId() {
+        return donationId;
     }
 
-    public Long getId() {
-        return id;
+    public Donor getDonor() {
+        return donor;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDonor(Donor donor) {
+        this.donor = donor;
     }
 
-    public String getName() {
-        return name;
+    public LocalDateTime getDonatedAt() {
+        return donatedAt;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public DonationStatus getStatus() {
+        return status;
     }
 
-    @Override
-    public String toString() {
-        return "Donation{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public void setStatus(DonationStatus status) {
+        this.status = status;
+    }
+
+    public FulfillmentMethod getFulfillmentMethod() {
+        return fulfillmentMethod;
+    }
+
+    public void setFulfillmentMethod(FulfillmentMethod fulfillmentMethod) {
+        this.fulfillmentMethod = fulfillmentMethod;
+    }
+
+    public Address getPickupAddress() {
+        return pickupAddress;
+    }
+
+    public void setPickupAddress(Address pickupAddress) {
+        this.pickupAddress = pickupAddress;
     }
 }
-

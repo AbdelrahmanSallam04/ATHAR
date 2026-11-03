@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<ScrollPane fitToWidth="true" styleClass="content-scroll"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.nonprofit.controller.InKindDonationController">
+
+    <content>
+        <VBox spacing="20" styleClass="content-area">
+
+            <!-- Page header with Active Donor Profile -->
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Make a Food or Clothes Donation" styleClass="h1"/>
+                    <Label text="كل خير .. أثر — Support families in need with essential clothing and nutritious food." styleClass="caption"/>
+                </VBox>
+                <HBox alignment="CENTER" spacing="8" styleClass="card" style="-fx-padding: 8 16; -fx-background-radius: 20;">
+                    <FontIcon iconLiteral="mdi2a-account-circle" iconSize="22" styleClass="muted"/>
+                    <VBox spacing="1">
+                        <Label fx:id="activeDonorName" text="Donor: Sallam" styleClass="field-label"/>
+                        <Label fx:id="activeDonorContact" text="01129908336" styleClass="caption"/>
+                    </VBox>
+                </HBox>
+            </HBox>
+
+            <!-- Two-column responsive layout -->
+            <HBox spacing="24">
+
+                <!-- Left Column: Form Cards -->
+                <VBox spacing="20" HBox.hgrow="ALWAYS">
+
+                    <!-- Category Tab Bar -->
+                    <HBox spacing="12">
+                        <ToggleButton fx:id="clothesTab" text=" Clothes Donation" styleClass="segmented-tab" selected="true">
+                            <graphic>
+                                <FontIcon iconLiteral="mdi2h-hanger" iconSize="18"/>
+                            </graphic>
+                        </ToggleButton>
+                        <ToggleButton fx:id="foodTab" text=" Food Donation" styleClass="segmented-tab">
+                            <graphic>
+                                <FontIcon iconLiteral="mdi2f-food-apple" iconSize="18"/>
+                            </graphic>
+                        </ToggleButton>
+                    </HBox>
+
+                    <!-- Card 1: Items Builder -->
+                    <VBox styleClass="card" spacing="16">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label fx:id="itemsCardTitle" text="Clothing Items" styleClass="card-title"/>
+                            <Label text="(Add one or more items to your donation batch)" styleClass="caption"/>
+                        </HBox>
+
+                        <!-- Clothes Controls Box -->
+                        <VBox fx:id="clothesInputBox" spacing="12">
+                            <GridPane hgap="12" vgap="8">
+                                <columnConstraints>
+                                    <ColumnConstraints percentWidth="32"/>
+                                    <ColumnConstraints percentWidth="24"/>
+                                    <ColumnConstraints percentWidth="24"/>
+                                    <ColumnConstraints percentWidth="20"/>
+                                </columnConstraints>
+
+                                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <Label text="Item Type" styleClass="field-label"/>
+                                    <ComboBox fx:id="clothingTypeCombo" maxWidth="Infinity" promptText="Select type"/>
+                                </VBox>
+
+                                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <Label text="Target" styleClass="field-label"/>
+                                    <ComboBox fx:id="clothingGenderCombo" maxWidth="Infinity"/>
+                                </VBox>
+
+                                <VBox spacing="4" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                    <Label text="Size" styleClass="field-label"/>
+                                    <ComboBox fx:id="clothingSizeCombo" maxWidth="Infinity"/>
+                                </VBox>
+
+                                <VBox spacing="4" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                                    <Label text="Quantity" styleClass="field-label"/>
+                                    <Spinner fx:id="clothingQuantitySpinner" editable="true" maxWidth="Infinity"/>
+                                </VBox>
+                            </GridPane>
+
+                            <HBox alignment="CENTER_RIGHT">
+                                <Button fx:id="addClothingBtn" text="+ Add Clothing Item" onAction="#onAddClothingItem" styleClass="btn-secondary">
+                                    <graphic>
+                                        <FontIcon iconLiteral="mdi2p-plus" iconSize="16"/>
+                                    </graphic>
+                                </Button>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Food Controls Box -->
+                        <VBox fx:id="foodInputBox" spacing="12">
+                            <GridPane hgap="12" vgap="8">
+                                <columnConstraints>
+                                    <ColumnConstraints percentWidth="56"/>
+                                    <ColumnConstraints percentWidth="22"/>
+                                    <ColumnConstraints percentWidth="22"/>
+                                </columnConstraints>
+
+                                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <Label text="Food Item &amp; Package" styleClass="field-label"/>
+                                    <ComboBox fx:id="foodTypeCombo" maxWidth="Infinity" promptText="Select food item"/>
+                                </VBox>
+
+                                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <Label text="Quantity" styleClass="field-label"/>
+                                    <Spinner fx:id="foodQuantitySpinner" editable="true" maxWidth="Infinity"/>
+                                </VBox>
+
+                                <VBox spacing="4" alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                    <Label text="Perishable?" styleClass="field-label"/>
+                                    <CheckBox fx:id="foodPerishableCheck" text="Refrigerated"/>
+                                </VBox>
+                            </GridPane>
+
+                            <HBox alignment="CENTER_RIGHT">
+                                <Button fx:id="addFoodBtn" text="+ Add Food Item" onAction="#onAddFoodItem" styleClass="btn-secondary">
+                                    <graphic>
+                                        <FontIcon iconLiteral="mdi2p-plus" iconSize="16"/>
+                                    </graphic>
+                                </Button>
+                            </HBox>
+                        </VBox>
+
+                        <Label fx:id="itemInputError" styleClass="error-text"/>
+
+                        <!-- Items Table -->
+                        <VBox spacing="8">
+                            <Label text="Items Added to this Donation:" styleClass="field-label"/>
+                            <TableView fx:id="itemsTable" prefHeight="170" maxHeight="220" maxWidth="Infinity">
+                                <columns>
+                                    <TableColumn fx:id="itemCategoryCol" text="Type" prefWidth="100"/>
+                                    <TableColumn fx:id="itemDescriptionCol" text="Item Description" prefWidth="340"/>
+                                    <TableColumn fx:id="itemQuantityCol" text="Quantity" prefWidth="80"/>
+                                    <TableColumn fx:id="itemActionCol" text="Action" prefWidth="75"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="No items added yet. Choose clothes or food above and click '+ Add'." styleClass="muted"/>
+                                </placeholder>
+                            </TableView>
+                            <Label fx:id="tableError" styleClass="error-text"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Card 2: Fulfillment / Delivery Method -->
+                    <VBox styleClass="card" spacing="16">
+                        <Label text="Fulfillment method" styleClass="card-title"/>
+
+                        <HBox spacing="16">
+                            <ToggleButton fx:id="officeDropoffOption" styleClass="method-card" text="Office Drop-off" maxWidth="Infinity" HBox.hgrow="ALWAYS" selected="true">
+                                <graphic>
+                                    <FontIcon iconLiteral="mdi2b-bank" iconSize="26"/>
+                                </graphic>
+                            </ToggleButton>
+
+                            <ToggleButton fx:id="courierPickupOption" styleClass="method-card" text="Courier Pickup" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                                <graphic>
+                                    <FontIcon iconLiteral="mdi2t-truck-delivery" iconSize="26"/>
+                                </graphic>
+                            </ToggleButton>
+                        </HBox>
+
+                        <!-- Office Dropoff Notice -->
+                        <VBox fx:id="officeNoticeBox" styleClass="alert-banner, info" spacing="4">
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <FontIcon iconLiteral="mdi2i-information" iconSize="18"/>
+                                <Label text="ATHAR Main Distribution Hub" styleClass="field-label"/>
+                            </HBox>
+                            <Label text="Address: 12 El-Thawra St, Heliopolis, Cairo. Working hours: Sun–Thu, 9:00 AM – 5:00 PM." styleClass="caption"/>
+                        </VBox>
+
+                        <!-- Courier Pickup Address Section -->
+                        <VBox fx:id="courierAddressBox" spacing="14">
+                            <Label text="Pickup Address" styleClass="field-label"/>
+
+                            <!-- Saved Address Selector -->
+                            <VBox spacing="6">
+                                <Label text="Choose a Saved Address or Add New:" styleClass="caption"/>
+                                <ComboBox fx:id="savedAddressCombo" maxWidth="Infinity" promptText="Select address..."/>
+                            </VBox>
+
+                            <!-- New Address Form (shown when adding a new address) -->
+                            <VBox fx:id="newAddressForm" spacing="12" style="-fx-padding: 12 0 0 0;">
+                                <HBox spacing="18" alignment="CENTER_LEFT">
+                                    <Label text="Address Type:" styleClass="field-label"/>
+                                    <RadioButton fx:id="homeTypeRadio" text="Home" selected="true" style="-fx-text-fill: -athar-text;"/>
+                                    <RadioButton fx:id="officeTypeRadio" text="Office / Workplace" style="-fx-text-fill: -athar-text;"/>
+                                    <RadioButton fx:id="otherTypeRadio" text="Other" style="-fx-text-fill: -athar-text;"/>
+                                </HBox>
+
+                                <GridPane hgap="12" vgap="8">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="60"/>
+                                        <ColumnConstraints percentWidth="40"/>
+                                    </columnConstraints>
+
+                                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                        <Label text="Street Address *" styleClass="field-label"/>
+                                        <TextField fx:id="streetField" promptText="e.g. 15 Abbas El Akkad St"/>
+                                        <Label fx:id="streetError" styleClass="error-text"/>
+                                    </VBox>
+
+                                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <Label text="City / District *" styleClass="field-label"/>
+                                        <ComboBox fx:id="cityCombo" maxWidth="Infinity"/>
+                                    </VBox>
+                                </GridPane>
+
+                                <GridPane hgap="12" vgap="8">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="33"/>
+                                        <ColumnConstraints percentWidth="33"/>
+                                        <ColumnConstraints percentWidth="34"/>
+                                    </columnConstraints>
+
+                                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                        <Label text="Building / Villa No. *" styleClass="field-label"/>
+                                        <TextField fx:id="buildingField" promptText="e.g. 24"/>
+                                        <Label fx:id="buildingError" styleClass="error-text"/>
+                                    </VBox>
+
+                                    <VBox fx:id="floorContainer" spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <Label text="Floor No. *" styleClass="field-label"/>
+                                        <TextField fx:id="floorField" promptText="e.g. 3"/>
+                                        <Label fx:id="floorError" styleClass="error-text"/>
+                                    </VBox>
+
+                                    <VBox fx:id="apartmentContainer" spacing="4" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                        <Label text="Apartment No. *" styleClass="field-label"/>
+                                        <TextField fx:id="apartmentField" promptText="e.g. 12"/>
+                                        <Label fx:id="apartmentError" styleClass="error-text"/>
+                                    </VBox>
+                                </GridPane>
+
+                                <VBox spacing="4">
+                                    <Label text="Special Pickup Instructions / Landmark (optional)" styleClass="field-label"/>
+                                    <TextField fx:id="notesField" promptText="e.g. Near Al-Ahly Club Gate 2, buzzer on left"/>
+                                </VBox>
+                            </VBox>
+                        </VBox>
+
+                        <Label fx:id="generalErrorBanner" styleClass="alert-banner, danger"/>
+                    </VBox>
+
+                </VBox>
+
+                <!-- Right Column: Donation Summary Card -->
+                <VBox spacing="16" minWidth="320" prefWidth="340" maxWidth="380">
+                    <VBox styleClass="card, card-cream" spacing="14">
+                        <Label text="Donation summary" styleClass="card-title"/>
+
+                        <GridPane hgap="8" vgap="8">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="38"/>
+                                <ColumnConstraints percentWidth="62"/>
+                            </columnConstraints>
+
+                            <Label text="Donor" styleClass="summary-key" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Label fx:id="summaryDonor" text="Sallam" styleClass="summary-value" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                            <Label text="Fulfillment" styleClass="summary-key" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label fx:id="summaryFulfillment" text="Office Drop-off" styleClass="summary-value" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Address" styleClass="summary-key" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Label fx:id="summaryAddress" text="ATHAR HQ, Heliopolis" styleClass="summary-value" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        </GridPane>
+
+                        <Region styleClass="divider"/>
+
+                        <Label text="ITEMS SUMMARY" styleClass="field-label"/>
+                        <VBox fx:id="summaryItemsBox" spacing="4">
+                            <Label text="No items added" styleClass="caption"/>
+                        </VBox>
+
+                        <Region styleClass="divider"/>
+
+                        <VBox spacing="2">
+                            <Label text="TOTAL QUANTITY" styleClass="stat-label"/>
+                            <Label fx:id="summaryTotalCount" text="0 Items" styleClass="summary-total"/>
+                        </VBox>
+
+                        <Button fx:id="submitButton" text="Submit Donation" onAction="#onSubmitDonation"
+                                maxWidth="Infinity" styleClass="btn-accent">
+                            <graphic>
+                                <FontIcon iconLiteral="mdi2c-check-circle" iconSize="18"/>
+                            </graphic>
+                        </Button>
+
+                        <Label text="A receipt voucher with instructions is issued immediately upon submission."
+                               styleClass="caption" wrapText="true"/>
+                    </VBox>
+                </VBox>
+
+            </HBox>
+
+        </VBox>
+    </content>
+</ScrollPane>

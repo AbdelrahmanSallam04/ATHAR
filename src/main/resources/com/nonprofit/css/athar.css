@@ -1,0 +1,718 @@
+/* =====================================================================
+   ATHAR - Non-Profit Management & Impact Platform
+   Global stylesheet. Load on every Scene (see App.java).
+   Colours, sizes and class names follow the ATHAR UI specification.
+   ===================================================================== */
+
+/* ---------- 1. Colour tokens ---------- */
+.root {
+    -athar-navy: #1B3A6B;
+    -athar-navy-dark: #12294C;
+    -athar-navy-light: #2F5597;
+    -athar-gold: #B8903A;
+    -athar-gold-dark: #8F6D26;
+    -athar-gold-light: #F4EAD3;
+    -athar-bg: #F6F7FA;
+    -athar-surface: #FFFFFF;
+    -athar-surface-alt: #F3F6FB;
+    -athar-cream: #FDFAF1;
+    -athar-border: #D3D9E3;
+    -athar-text: #262B33;
+    -athar-muted: #5B6573;
+    -athar-disabled: #9AA3B0;
+    -athar-success: #027A48;
+    -athar-success-bg: #E6F4EC;
+    -athar-warning: #B54708;
+    -athar-warning-bg: #FDF0E1;
+    -athar-danger: #B42318;
+    -athar-danger-bg: #FDECEA;
+    -athar-info: #2F5597;
+    -athar-info-bg: #E8EEF8;
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-background-color: -athar-bg;
+    -fx-accent: -athar-navy;
+    -fx-focus-color: -athar-gold;
+    -fx-faint-focus-color: transparent;
+}
+
+.label {
+    -fx-text-fill: -athar-text;
+}
+
+/* ---------- 2. Typography ---------- */
+.page-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-navy;
+}
+
+.h1 {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-navy;
+}
+
+.h2 {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-navy;
+}
+
+.h3 {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-navy;
+}
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-navy;
+}
+
+.body-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: -athar-text;
+}
+
+.caption {
+    -fx-font-size: 12px;
+    -fx-text-fill: -athar-muted;
+}
+
+.muted {
+    -fx-text-fill: -athar-muted;
+}
+
+.field-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-muted;
+}
+
+.error-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: -athar-danger;
+}
+
+.stat-value {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-navy;
+}
+
+.stat-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-muted;
+}
+
+/* ---------- 3. Application shell ---------- */
+.app-shell {
+    -fx-background-color: -athar-bg;
+}
+
+.sidebar {
+    -fx-background-color: -athar-navy-dark;
+    -fx-pref-width: 250px;
+    -fx-min-width: 250px;
+    -fx-padding: 20px 12px 16px 12px;
+    -fx-spacing: 4px;
+}
+
+.brand {
+    -fx-padding: 0 8px 12px 8px;
+    -fx-spacing: 12px;
+}
+
+.brand-mark {
+    -fx-min-width: 52px;
+    -fx-min-height: 52px;
+    -fx-max-width: 52px;
+    -fx-max-height: 52px;
+    -fx-alignment: center;
+    -fx-background-color: -athar-cream;
+    -fx-background-radius: 12px;
+    -fx-text-fill: -athar-navy;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.brand-title {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.brand-sub {
+    -fx-text-fill: -athar-gold;
+    -fx-font-size: 11px;
+}
+
+.sidebar-separator {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-min-height: 1px;
+    -fx-pref-height: 1px;
+    -fx-max-height: 1px;
+}
+
+.sidebar-section {
+    -fx-text-fill: rgba(255, 255, 255, 0.5);
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 14px 12px 6px 12px;
+}
+
+.sidebar-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 0 3px;
+    -fx-text-fill: rgba(255, 255, 255, 0.78);
+    -fx-alignment: center-left;
+    -fx-padding: 10px 12px;
+    -fx-graphic-text-gap: 12px;
+    -fx-max-width: infinity;
+    -fx-min-height: 40px;
+    -fx-cursor: hand;
+}
+
+.sidebar-item .ikonli-font-icon {
+    -fx-icon-color: rgba(255, 255, 255, 0.78);
+}
+
+.sidebar-item:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-item:selected,
+.sidebar-item.active {
+    -fx-background-color: rgba(255, 255, 255, 0.10);
+    -fx-border-color: -athar-gold;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.sidebar-item:selected .ikonli-font-icon,
+.sidebar-item.active .ikonli-font-icon {
+    -fx-icon-color: -athar-gold;
+}
+
+.sidebar-user {
+    -fx-padding: 12px 8px 0 8px;
+    -fx-spacing: 10px;
+}
+
+.sidebar-user-name {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.sidebar-user-role {
+    -fx-text-fill: rgba(255, 255, 255, 0.6);
+    -fx-font-size: 12px;
+}
+
+.topbar {
+    -fx-background-color: -athar-surface;
+    -fx-border-color: -athar-border;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 14px 24px;
+    -fx-spacing: 16px;
+    -fx-alignment: center-left;
+}
+
+.avatar {
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
+    -fx-max-width: 36px;
+    -fx-max-height: 36px;
+    -fx-alignment: center;
+    -fx-background-color: -athar-navy;
+    -fx-background-radius: 50px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.sidebar .avatar {
+    -fx-background-color: -athar-gold;
+    -fx-text-fill: -athar-navy-dark;
+}
+
+.content-scroll,
+.content-scroll>.viewport {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.content-scroll {
+    -fx-padding: 0;
+}
+
+.content-area {
+    -fx-padding: 24px;
+    -fx-spacing: 24px;
+}
+
+/* ---------- 4. Cards ---------- */
+.card {
+    -fx-background-color: -athar-surface;
+    -fx-background-radius: 12px;
+    -fx-border-color: -athar-border;
+    -fx-border-radius: 12px;
+    -fx-padding: 20px;
+    -fx-spacing: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(27, 58, 107, 0.08), 12, 0, 0, 2);
+}
+
+.card-cream {
+    -fx-background-color: -athar-cream;
+}
+
+.stat-card {
+    -fx-background-color: -athar-surface;
+    -fx-background-radius: 12px;
+    -fx-border-color: -athar-border;
+    -fx-border-radius: 12px;
+    -fx-padding: 20px;
+    -fx-spacing: 6px;
+    -fx-effect: dropshadow(gaussian, rgba(27, 58, 107, 0.08), 12, 0, 0, 2);
+}
+
+.stat-card.gold {
+    -fx-border-color: -athar-gold;
+    -fx-border-width: 0 0 0 4px;
+}
+
+.divider {
+    -fx-background-color: -athar-border;
+    -fx-min-height: 1px;
+    -fx-pref-height: 1px;
+    -fx-max-height: 1px;
+}
+
+/* ---------- 5. Inputs ---------- */
+.text-field,
+.password-field,
+.text-area,
+.combo-box,
+.date-picker {
+    -fx-background-color: -athar-surface;
+    -fx-background-radius: 8px;
+    -fx-border-color: -athar-border;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-text-fill: -athar-text;
+    -fx-prompt-text-fill: -athar-disabled;
+}
+
+.text-field,
+.password-field {
+    -fx-padding: 9px 12px;
+    -fx-pref-height: 40px;
+}
+
+.text-field:focused,
+.password-field:focused,
+.text-area:focused,
+.combo-box:focused,
+.date-picker:focused {
+    -fx-border-color: -athar-gold;
+    -fx-border-width: 2px;
+    -fx-padding: 8px 11px;
+}
+
+.text-field.invalid,
+.password-field.invalid,
+.combo-box.invalid {
+    -fx-border-color: -athar-danger;
+}
+
+.search-field {
+    -fx-pref-width: 320px;
+}
+
+/* Radio buttons and Checkboxes */
+.radio-button,
+.check-box {
+    -fx-text-fill: -athar-text;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.radio-button .text,
+.check-box .text {
+    -fx-fill: -athar-text;
+}
+.radio-button .radio {
+    -fx-background-color: -athar-border, -athar-surface;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 10px;
+    -fx-padding: 3px;
+}
+.radio-button:selected .radio {
+    -fx-background-color: -athar-navy, -athar-surface;
+}
+.radio-button:selected .dot {
+    -fx-background-color: -athar-navy;
+    -fx-background-insets: 0;
+}
+.check-box .box {
+    -fx-background-color: -athar-border, -athar-surface;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 4px;
+}
+.check-box:selected .box {
+    -fx-background-color: -athar-navy;
+}
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+/* ---------- 6. Buttons ---------- */
+.button,
+.toggle-button {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 18px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-min-height: 36px;
+}
+
+.button:disabled,
+.toggle-button:disabled {
+    -fx-opacity: 0.5;
+}
+
+.btn-primary {
+    -fx-background-color: -athar-navy;
+    -fx-text-fill: white;
+}
+
+.btn-primary:hover {
+    -fx-background-color: -athar-navy-light;
+}
+
+.btn-primary:pressed {
+    -fx-background-color: -athar-navy-dark;
+}
+
+.btn-accent {
+    -fx-background-color: -athar-gold;
+    -fx-text-fill: -athar-navy-dark;
+}
+
+.btn-accent:hover {
+    -fx-background-color: -athar-gold-dark;
+    -fx-text-fill: white;
+}
+
+.btn-accent:pressed {
+    -fx-background-color: -athar-navy-dark;
+    -fx-text-fill: white;
+}
+
+.btn-secondary {
+    -fx-background-color: -athar-surface;
+    -fx-border-color: -athar-navy;
+    -fx-text-fill: -athar-navy;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: -athar-surface-alt;
+}
+
+.btn-danger {
+    -fx-background-color: -athar-danger;
+    -fx-text-fill: white;
+}
+
+.btn-danger:hover {
+    -fx-background-color: derive(-athar-danger, -15%);
+}
+
+.btn-ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: -athar-navy-light;
+}
+
+.btn-ghost:hover {
+    -fx-background-color: -athar-surface-alt;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-padding: 8px;
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
+}
+
+.icon-button:hover {
+    -fx-background-color: -athar-surface-alt;
+}
+
+/* Small preset buttons, e.g. quick donation amounts */
+.chip-button {
+    -fx-background-color: -athar-surface;
+    -fx-border-color: -athar-border;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-text-fill: -athar-navy;
+    -fx-padding: 6px 14px;
+    -fx-font-size: 13px;
+    -fx-min-height: 32px;
+}
+
+.chip-button:hover {
+    -fx-background-color: -athar-gold-light;
+    -fx-border-color: -athar-gold;
+}
+
+/* Selectable option cards (payment methods) */
+.method-card {
+    -fx-background-color: -athar-surface;
+    -fx-border-color: -athar-border;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-padding: 16px 12px;
+    -fx-content-display: top;
+    -fx-graphic-text-gap: 8px;
+    -fx-text-fill: -athar-navy;
+    -fx-pref-width: 100px;
+    /* equal widths when grown inside an HBox */
+    -fx-max-width: infinity;
+    -fx-min-height: 88px;
+}
+
+.method-card .ikonli-font-icon {
+    -fx-icon-color: -athar-navy;
+}
+
+.method-card:hover {
+    -fx-background-color: -athar-surface-alt;
+}
+
+.method-card:selected {
+    -fx-background-color: -athar-gold-light;
+    -fx-border-color: -athar-gold;
+    -fx-border-width: 2px;
+    -fx-padding: 15px 11px;
+}
+
+.method-card:selected .ikonli-font-icon {
+    -fx-icon-color: -athar-gold-dark;
+}
+
+/* ---------- 7. Feedback ---------- */
+.alert-banner {
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 14px;
+    -fx-graphic-text-gap: 10px;
+    -fx-max-width: infinity;
+}
+
+.alert-banner.danger {
+    -fx-background-color: -athar-danger-bg;
+    -fx-text-fill: -athar-danger;
+}
+
+.alert-banner.danger .ikonli-font-icon {
+    -fx-icon-color: -athar-danger;
+}
+
+.alert-banner.info {
+    -fx-background-color: -athar-info-bg;
+    -fx-text-fill: -athar-info;
+}
+
+.alert-banner.info .ikonli-font-icon {
+    -fx-icon-color: -athar-info;
+}
+
+.toast {
+    -fx-background-color: -athar-surface;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-padding: 12px 18px;
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(18, 41, 76, 0.25), 16, 0, 0, 4);
+}
+
+.toast-success {
+    -fx-border-color: -athar-success;
+}
+
+.toast-success .ikonli-font-icon {
+    -fx-icon-color: -athar-success;
+}
+
+.toast-error {
+    -fx-border-color: -athar-danger;
+}
+
+.toast-error .ikonli-font-icon {
+    -fx-icon-color: -athar-danger;
+}
+
+.empty-state {
+    -fx-alignment: center;
+    -fx-spacing: 12px;
+    -fx-padding: 48px;
+}
+
+.empty-state .ikonli-font-icon {
+    -fx-icon-color: -athar-gold;
+}
+
+.success-icon {
+    -fx-icon-color: -athar-success;
+}
+
+/* ---------- 8. Badges ---------- */
+.badge {
+    -fx-background-radius: 12px;
+    -fx-padding: 3px 10px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.badge-success {
+    -fx-background-color: -athar-success-bg;
+    -fx-text-fill: -athar-success;
+}
+
+.badge-warning {
+    -fx-background-color: -athar-warning-bg;
+    -fx-text-fill: -athar-warning;
+}
+
+.badge-danger {
+    -fx-background-color: -athar-danger-bg;
+    -fx-text-fill: -athar-danger;
+}
+
+.badge-info {
+    -fx-background-color: -athar-info-bg;
+    -fx-text-fill: -athar-info;
+}
+
+.badge-neutral {
+    -fx-background-color: -athar-surface-alt;
+    -fx-text-fill: -athar-muted;
+}
+
+.badge-gold {
+    -fx-background-color: -athar-gold-light;
+    -fx-text-fill: -athar-gold-dark;
+}
+
+/* ---------- 9. Summary rows (cream card) ---------- */
+.summary-key {
+    -fx-text-fill: -athar-muted;
+}
+
+.summary-value {
+    -fx-text-fill: -athar-text;
+    -fx-font-weight: bold;
+}
+
+.summary-total {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-navy;
+}
+
+/* ---------- 10. Dialogs ---------- */
+.dialog-pane {
+    -fx-background-color: -athar-surface;
+    -fx-padding: 8px;
+}
+
+.dialog-pane>.button-bar>.container {
+    -fx-padding: 8px 16px 16px 16px;
+}
+
+.dialog-pane .button {
+    -fx-background-color: -athar-navy;
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: -athar-navy-light;
+}
+
+/* ---------- 11. Scroll bars ---------- */
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -athar-border;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+}
+
+/* Segmented tab bar */
+.segmented-tab {
+    -fx-background-color: -athar-surface;
+    -fx-border-color: -athar-border;
+    -fx-border-width: 1px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-text-fill: -athar-navy;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.segmented-tab:selected {
+    -fx-background-color: -athar-navy;
+    -fx-border-color: -athar-navy;
+    -fx-text-fill: white;
+}
+
+.segmented-tab:selected .ikonli-font-icon {
+    -fx-icon-color: -athar-gold;
+}
+
+/* Items table styling */
+.table-view {
+    -fx-background-color: -athar-surface;
+    -fx-border-color: -athar-border;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -athar-surface-alt;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-navy;
+    -fx-padding: 8px;
+}
+
+.table-row-cell {
+    -fx-background-color: -athar-surface;
+    -fx-border-color: transparent transparent -athar-surface-alt transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #FAFBFC;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: -athar-gold-light;
+}
