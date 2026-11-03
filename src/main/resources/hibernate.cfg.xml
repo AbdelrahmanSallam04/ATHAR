@@ -28,5 +28,11 @@
 
         <!-- Registered Entity Classes -->
         <mapping class="com.nonprofit.model.Donation"/>
+        <mapping class="com.nonprofit.model.User"/>
+        <mapping class="com.nonprofit.model.Donor"/>
+        <mapping class="com.nonprofit.model.Volunteer"/>
+        <mapping class="com.nonprofit.model.Beneficiary"/>
+        <mapping class="com.nonprofit.model.EventManager"/>
+        <mapping class="com.nonprofit.model.BeneficiaryManager"/>
     </session-factory>
 </hibernate-configuration>
