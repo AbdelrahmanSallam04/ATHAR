@@ -40,6 +40,29 @@ public abstract class Donation {
 
     public abstract Receipt processDonation();
 
+    // ----- Self-description used by lists such as the profile's donation history -----
+
+    /** Short type name, e.g. "Money", "Food", "Clothes". */
+    public abstract String getTypeLabel();
+
+    /** One-line summary of what was donated, e.g. "EGP 500.00" or "12 units: Rice, Oil". */
+    public abstract String getSummary();
+
+    /** How the donation is delivered or paid. Money donations override this with the payment method. */
+    public String getMethodLabel() {
+        return fulfillmentMethod != null ? fulfillmentMethod.getDisplayName() : "—";
+    }
+
+    /** Money value of the donation; 0 for in-kind donations. */
+    public double getMonetaryValue() {
+        return 0;
+    }
+
+    /** Number of physical items; 0 for money donations. */
+    public int getItemCount() {
+        return 0;
+    }
+
     public Long getDonationId() {
         return donationId;
     }

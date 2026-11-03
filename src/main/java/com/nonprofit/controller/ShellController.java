@@ -29,9 +29,12 @@ public class ShellController {
 
     // Navigation key -> FXML file
     private static final Map<String, String> SCREENS = Map.of(
-            "donations", "/com/nonprofit/view/donation-types.fxml");
+            "dashboard", "/com/nonprofit/view/dashboard.fxml",
+            "donations", "/com/nonprofit/view/donation-types.fxml",
+            "profile", "/com/nonprofit/view/profile.fxml");
 
     @FXML private ToggleGroup navGroup;
+    @FXML private ToggleButton dashboardNav;
     @FXML private ToggleButton donationsNav;
     @FXML private Label pageTitle;
     @FXML private VBox contentArea;
@@ -58,7 +61,22 @@ public class ShellController {
                 showScreen(newToggle);
             }
         });
-        navGroup.selectToggle(donationsNav);
+        navGroup.selectToggle(dashboardNav);
+    }
+
+    /** Selects the sidebar item with the given key (its userData), e.g. "donations". */
+    public void navigateTo(String key) {
+        for (Toggle toggle : navGroup.getToggles()) {
+            if (key.equals(toggle.getUserData())) {
+                navGroup.selectToggle(toggle);
+                return;
+            }
+        }
+    }
+
+    /** Re-reads the logged-in donor, e.g. after the profile was edited. */
+    public void refreshUserInfo() {
+        populateUserInfo();
     }
 
     /**
@@ -94,7 +112,11 @@ public class ShellController {
             return;
         }
         try {
-            Node screen = FXMLLoader.load(getClass().getResource(fxml));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Node screen = loader.load();
+            if (loader.getController() instanceof ShellAware screenController) {
+                screenController.setShell(this);
+            }
             contentArea.getChildren().setAll(screen);
         } catch (IOException e) {
             e.printStackTrace();

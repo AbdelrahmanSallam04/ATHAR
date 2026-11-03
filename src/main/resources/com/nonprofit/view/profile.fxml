@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nonprofit.controller.ProfileController"
+      stylesheets="@../css/profile.css"
+      spacing="24">
+
+    <!-- ===== Shown when nobody is logged in ===== -->
+    <VBox fx:id="signedOutBox" styleClass="card, empty-state" visible="false" managed="false">
+        <FontIcon iconLiteral="mdi2l-lock-outline" iconSize="44"/>
+        <Label text="Sign in to see your profile" styleClass="h3"/>
+        <Label text="Your personal details and donation history appear here after you log in."
+               styleClass="caption"/>
+    </VBox>
+
+    <VBox fx:id="profileContent" spacing="24">
+
+        <!-- ===== Identity + stats ===== -->
+        <HBox spacing="24">
+            <HBox styleClass="card, identity-card" HBox.hgrow="ALWAYS" minWidth="300">
+                <Label fx:id="avatarLabel" styleClass="avatar-lg"/>
+                <VBox spacing="6">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label fx:id="nameLabel" styleClass="h2"/>
+                        <Label fx:id="roleBadge" styleClass="badge, badge-gold"/>
+                    </HBox>
+                    <Label fx:id="contactLabel" styleClass="contact-line">
+                        <graphic><FontIcon iconLiteral="mdi2c-card-account-mail-outline" iconSize="16"/></graphic>
+                    </Label>
+                </VBox>
+            </HBox>
+
+            <VBox styleClass="stat-card, gold, profile-stat" HBox.hgrow="ALWAYS">
+                <Label text="TOTAL GIVEN" styleClass="stat-label"/>
+                <Label fx:id="totalMoneyLabel" text="—" styleClass="stat-value"/>
+                <Label text="Money donations" styleClass="caption"/>
+            </VBox>
+            <VBox styleClass="stat-card, profile-stat" HBox.hgrow="ALWAYS">
+                <Label text="DONATIONS" styleClass="stat-label"/>
+                <Label fx:id="donationCountLabel" text="—" styleClass="stat-value"/>
+                <Label text="All types" styleClass="caption"/>
+            </VBox>
+            <VBox styleClass="stat-card, profile-stat" HBox.hgrow="ALWAYS">
+                <Label text="ITEMS GIVEN" styleClass="stat-label"/>
+                <Label fx:id="itemCountLabel" text="—" styleClass="stat-value"/>
+                <Label text="Food and clothes" styleClass="caption"/>
+            </VBox>
+        </HBox>
+
+        <!-- ===== Edit info + addresses ===== -->
+        <HBox spacing="24" fillHeight="false">
+
+            <VBox styleClass="card" HBox.hgrow="ALWAYS" prefWidth="100">
+                <Label text="Personal information" styleClass="card-title"/>
+                <GridPane hgap="16" vgap="16">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+                    <VBox spacing="6" GridPane.columnIndex="0">
+                        <Label text="Full name *" styleClass="field-label"/>
+                        <TextField fx:id="nameField"/>
+                    </VBox>
+                    <VBox spacing="6" GridPane.columnIndex="1">
+                        <Label text="Email or phone *" styleClass="field-label"/>
+                        <TextField fx:id="contactField"/>
+                    </VBox>
+                </GridPane>
+                <Label text="Your email or phone is also what you use to sign in."
+                       styleClass="caption" wrapText="true"/>
+                <Label fx:id="profileError" styleClass="alert-banner, danger" wrapText="true">
+                    <graphic><FontIcon iconLiteral="mdi2a-alert-circle-outline" iconSize="18"/></graphic>
+                </Label>
+                <HBox spacing="12" alignment="CENTER_RIGHT">
+                    <Button fx:id="resetButton" text="Discard changes" styleClass="btn-ghost" onAction="#onResetProfile"/>
+                    <Button fx:id="saveButton" text="Save changes" styleClass="btn-primary" onAction="#onSaveProfile"/>
+                </HBox>
+            </VBox>
+
+            <VBox styleClass="card" HBox.hgrow="ALWAYS" prefWidth="100">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Saved addresses" styleClass="card-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Add address" styleClass="btn-secondary" onAction="#onAddAddress">
+                        <graphic><FontIcon iconLiteral="mdi2p-plus" iconSize="16"/></graphic>
+                    </Button>
+                </HBox>
+                <VBox fx:id="addressList" spacing="8"/>
+                <Label fx:id="noAddressesLabel" text="No saved addresses yet. Add one to use courier pickup."
+                       styleClass="caption" wrapText="true"/>
+            </VBox>
+        </HBox>
+
+        <!-- ===== Donation history ===== -->
+        <VBox styleClass="card">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="Donation history" styleClass="card-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Show" styleClass="field-label"/>
+                <ComboBox fx:id="typeFilter" prefWidth="160"/>
+            </HBox>
+            <TableView fx:id="historyTable" styleClass="history-table">
+                <columns>
+                    <TableColumn fx:id="dateColumn" text="Date" prefWidth="140"/>
+                    <TableColumn fx:id="typeColumn" text="Type" prefWidth="100"/>
+                    <TableColumn fx:id="detailsColumn" text="Details" prefWidth="360"/>
+                    <TableColumn fx:id="methodColumn" text="Method" prefWidth="140"/>
+                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="190"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</VBox>

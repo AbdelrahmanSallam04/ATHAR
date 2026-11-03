@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nonprofit.controller.DashboardController"
+      stylesheets="@../css/dashboard.css"
+      spacing="24">
+
+    <!-- ===== Page header ===== -->
+    <VBox spacing="4">
+        <Label fx:id="welcomeTitle" styleClass="h2"/>
+        <Label text="What would you like to do today? — كل خير .. أثر" styleClass="caption"/>
+    </VBox>
+
+    <!-- ===== Shortcut cards ===== -->
+    <HBox spacing="24" alignment="TOP_LEFT">
+
+        <!-- Make a donation -->
+        <VBox styleClass="card, action-card, action-card-featured" HBox.hgrow="ALWAYS">
+            <StackPane styleClass="action-icon">
+                <FontIcon iconLiteral="mdi2h-hand-heart-outline" iconSize="30"/>
+            </StackPane>
+            <Label text="Make a Donation" styleClass="h3"/>
+            <Label text="Give money or in-kind goods such as food and clothes to families in need."
+                   styleClass="caption" wrapText="true"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Donate now" styleClass="btn-accent" maxWidth="Infinity" onAction="#onMakeDonation">
+                <graphic><FontIcon iconLiteral="mdi2a-arrow-right" iconSize="18"/></graphic>
+            </Button>
+        </VBox>
+
+        <!-- My profile -->
+        <VBox styleClass="card, action-card" HBox.hgrow="ALWAYS">
+            <StackPane styleClass="action-icon">
+                <FontIcon iconLiteral="mdi2a-account-circle-outline" iconSize="30"/>
+            </StackPane>
+            <Label text="My Profile" styleClass="h3"/>
+            <Label text="View and update your personal details, contact information and saved addresses."
+                   styleClass="caption" wrapText="true"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Go to profile" styleClass="btn-secondary" maxWidth="Infinity" onAction="#onOpenProfile">
+                <graphic><FontIcon iconLiteral="mdi2a-arrow-right" iconSize="18"/></graphic>
+            </Button>
+        </VBox>
+
+        <!-- Communications -->
+        <VBox styleClass="card, action-card" HBox.hgrow="ALWAYS">
+            <StackPane styleClass="action-icon">
+                <FontIcon iconLiteral="mdi2m-message-text-outline" iconSize="30"/>
+            </StackPane>
+            <Label text="Communications" styleClass="h3"/>
+            <Label text="Read messages and announcements from ATHAR about events and campaigns."
+                   styleClass="caption" wrapText="true"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Open messages" styleClass="btn-secondary" maxWidth="Infinity" onAction="#onOpenCommunications">
+                <graphic><FontIcon iconLiteral="mdi2a-arrow-right" iconSize="18"/></graphic>
+            </Button>
+        </VBox>
+    </HBox>
+</VBox>

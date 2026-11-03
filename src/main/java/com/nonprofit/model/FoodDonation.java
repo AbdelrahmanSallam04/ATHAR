@@ -73,6 +73,26 @@ public class FoodDonation extends Donation {
         return new Receipt(donor.getName(), 0.0, methodTitle, desc.toString(), details);
     }
 
+    @Override
+    public String getTypeLabel() {
+        return "Food";
+    }
+
+    @Override
+    public String getSummary() {
+        StringBuilder summary = new StringBuilder(getTotalItemsCount() + " units: ");
+        for (int i = 0; i < items.size(); i++) {
+            if (i > 0) summary.append(", ");
+            summary.append(items.get(i).getDescription());
+        }
+        return summary.toString();
+    }
+
+    @Override
+    public int getItemCount() {
+        return getTotalItemsCount();
+    }
+
     public List<FoodItem> getItems() {
         return items;
     }

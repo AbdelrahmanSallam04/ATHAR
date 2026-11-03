@@ -1,0 +1,47 @@
+/* =====================================================================
+   Donor profile (profile.fxml).
+   Uses the colour tokens defined in athar.css.
+   ===================================================================== */
+
+.avatar-lg {
+    -fx-min-width: 64px;
+    -fx-min-height: 64px;
+    -fx-max-width: 64px;
+    -fx-max-height: 64px;
+    -fx-alignment: center;
+    -fx-background-color: -athar-navy;
+    -fx-background-radius: 50px;
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.identity-card {
+    -fx-spacing: 16px;
+    -fx-alignment: center-left;
+}
+
+.contact-line {
+    -fx-text-fill: -athar-muted;
+    -fx-graphic-text-gap: 8px;
+}
+.contact-line .ikonli-font-icon { -fx-icon-color: -athar-muted; }
+
+/* Stat cards share the row equally */
+.profile-stat {
+    -fx-pref-width: 100px;
+}
+
+.address-row {
+    -fx-background-color: -athar-surface-alt;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 8px 10px 14px;
+    -fx-spacing: 12px;
+    -fx-alignment: center-left;
+}
+.address-row .address-icon { -fx-icon-color: -athar-gold-dark; }
+.address-row .icon-button .ikonli-font-icon { -fx-icon-color: -athar-danger; }
+
+.history-table {
+    -fx-pref-height: 380px;
+}

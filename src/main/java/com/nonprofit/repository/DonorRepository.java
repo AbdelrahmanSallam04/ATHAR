@@ -64,6 +64,57 @@ public class DonorRepository {
     }
 
     /**
+     * Updates the donor's name and contact info; returns the saved donor
+     * (with addresses loaded).
+     */
+    public Donor updateProfile(Long donorId, String name, String contactInfo) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            Donor managedDonor = session.get(Donor.class, donorId);
+            managedDonor.setName(name);
+            managedDonor.setContactInfo(contactInfo);
+            tx.commit();
+            return managedDonor;
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw e;
+        }
+    }
+
+    /** True if any donation uses this address for courier pickup. */
+    public boolean isAddressUsedByDonation(Long addressId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Long count = session.createQuery(
+                            "select count(d) from Donation d where d.pickupAddress.id = :addressId", Long.class)
+                    .setParameter("addressId", addressId)
+                    .getSingleResult();
+            return count > 0;
+        }
+    }
+
+    /**
+     * Removes one of the donor's saved addresses.
+     */
+    public void deleteAddress(Long donorId, Long addressId) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            Donor managedDonor = session.get(Donor.class, donorId);
+            // orphanRemoval on savedAddresses deletes the row
+            managedDonor.getSavedAddresses().removeIf(address -> address.getId().equals(addressId));
+            tx.commit();
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw e;
+        }
+    }
+
+    /**
      * Persists a new address linked to the specified donor.
      */
     public Address saveAddress(Donor donor, Address address) {

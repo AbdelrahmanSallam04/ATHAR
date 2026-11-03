@@ -46,8 +46,30 @@ public class MoneyDonation extends Donation {
 
         Payment payment = paymentCreator.processPayment(amount);
         paymentMethod = payment.getMethodName();
+        // Money is received as soon as the payment succeeds
+        status = DonationStatus.RECEIVED;
 
         return new Receipt(donor.getName(), amount, paymentMethod, "Money donation");
+    }
+
+    @Override
+    public String getTypeLabel() {
+        return "Money";
+    }
+
+    @Override
+    public String getSummary() {
+        return String.format("EGP %,.2f", amount);
+    }
+
+    @Override
+    public String getMethodLabel() {
+        return paymentMethod != null ? paymentMethod : "—";
+    }
+
+    @Override
+    public double getMonetaryValue() {
+        return amount;
     }
 
     public double getAmount() {

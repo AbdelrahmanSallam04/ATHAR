@@ -31,29 +31,15 @@
                 <ToggleGroup fx:id="navGroup"/>
             </fx:define>
 
-            <ToggleButton text="Dashboard" userData="dashboard" toggleGroup="$navGroup" styleClass="sidebar-item">
+            <!-- Donor menu -->
+            <ToggleButton fx:id="dashboardNav" text="Dashboard" userData="dashboard" toggleGroup="$navGroup" styleClass="sidebar-item">
                 <graphic><FontIcon iconLiteral="mdi2v-view-dashboard-outline" iconSize="20"/></graphic>
             </ToggleButton>
             <ToggleButton fx:id="donationsNav" text="Donations" userData="donations" toggleGroup="$navGroup" styleClass="sidebar-item">
                 <graphic><FontIcon iconLiteral="mdi2h-hand-heart-outline" iconSize="20"/></graphic>
             </ToggleButton>
-            <ToggleButton text="Volunteers" userData="volunteers" toggleGroup="$navGroup" styleClass="sidebar-item">
-                <graphic><FontIcon iconLiteral="mdi2a-account-group-outline" iconSize="20"/></graphic>
-            </ToggleButton>
-            <ToggleButton text="Events" userData="events" toggleGroup="$navGroup" styleClass="sidebar-item">
-                <graphic><FontIcon iconLiteral="mdi2c-calendar-star" iconSize="20"/></graphic>
-            </ToggleButton>
-            <ToggleButton text="Beneficiaries" userData="beneficiaries" toggleGroup="$navGroup" styleClass="sidebar-item">
-                <graphic><FontIcon iconLiteral="mdi2h-home-heart" iconSize="20"/></graphic>
-            </ToggleButton>
             <ToggleButton text="Communications" userData="communications" toggleGroup="$navGroup" styleClass="sidebar-item">
                 <graphic><FontIcon iconLiteral="mdi2m-message-text-outline" iconSize="20"/></graphic>
-            </ToggleButton>
-            <ToggleButton text="Reports &amp; Impact" userData="reports" toggleGroup="$navGroup" styleClass="sidebar-item">
-                <graphic><FontIcon iconLiteral="mdi2c-chart-box-outline" iconSize="20"/></graphic>
-            </ToggleButton>
-            <ToggleButton text="Administration" userData="administration" toggleGroup="$navGroup" styleClass="sidebar-item">
-                <graphic><FontIcon iconLiteral="mdi2s-shield-account-outline" iconSize="20"/></graphic>
             </ToggleButton>
             <ToggleButton text="My Profile" userData="profile" toggleGroup="$navGroup" styleClass="sidebar-item">
                 <graphic><FontIcon iconLiteral="mdi2a-account-circle-outline" iconSize="20"/></graphic>
