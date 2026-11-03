@@ -1,6 +1,7 @@
 package com.nonprofit.repository;
 
 import com.nonprofit.model.Donation;
+import com.nonprofit.model.Donor;
 import com.nonprofit.model.MoneyDonation;
 import com.nonprofit.util.HibernateUtil;
 import org.hibernate.Session;
@@ -21,6 +22,30 @@ public class MoneyDonationRepository {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
+            session.persist(donation);
+            tx.commit();
+            return donation;
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw e;
+        }
+    }
+
+    /**
+     * Saves a MoneyDonation linked to an already-persisted donor.
+     * Uses {@code merge} to re-attach the donor without inserting a duplicate row,
+     * then persists only the new donation record.
+     */
+    public MoneyDonation saveWithExistingDonor(MoneyDonation donation, Donor donor) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            // Re-attach the existing donor to this session (no INSERT, just a SELECT)
+            Donor managedDonor = session.merge(donor);
+            donation.setDonor(managedDonor);
+            // Persist only the donation row
             session.persist(donation);
             tx.commit();
             return donation;

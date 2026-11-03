@@ -27,9 +27,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/nonprofit/view/shell.fxml"));
+        // Open the Login / Signup screen first.
+        // After successful authentication the LoginController swaps the root
+        // of this scene to shell.fxml without creating a new window.
+        Parent root = FXMLLoader.load(getClass().getResource("/com/nonprofit/view/login.fxml"));
 
-        Scene scene = new Scene(root, 1366, 768);
+        Scene scene = new Scene(root, 520, 780);
         scene.getStylesheets().add(getClass().getResource(STYLESHEET).toExternalForm());
 
         URL logo = getClass().getResource(ShellController.LOGO_PATH);
@@ -40,9 +43,9 @@ public class App extends Application {
             }
         }
 
-        stage.setTitle("ATHAR – Non-Profit Management & Impact Platform");
-        stage.setMinWidth(1100);
-        stage.setMinHeight(700);
+        stage.setTitle("ATHAR – Sign In");
+        stage.setMinWidth(440);
+        stage.setMinHeight(600);
         stage.setScene(scene);
         stage.show();
     }

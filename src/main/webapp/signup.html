@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create an Account — ATHAR Impact Platform</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-container wide fade-in">
+      
+      <!-- Brand Header -->
+      <div class="auth-header">
+        <div class="brand-mark">أثر</div>
+        <h1 class="brand-title">ATHAR</h1>
+        <p class="brand-sub">Non-Profit Management & Impact Platform</p>
+      </div>
+
+      <!-- Signup Card -->
+      <div class="card">
+        <h2 class="h2" style="margin-bottom: 6px;">Create Your Account</h2>
+        <p class="body-text muted" style="margin-bottom: 24px;">Join ATHAR to contribute, volunteer, or coordinate charitable missions</p>
+
+        <!-- Alert Notification -->
+        <div id="signupAlert" class="alert-banner"></div>
+
+        <form id="signupForm" novalidate>
+          
+          <!-- Role Selection using ATHAR Method Cards -->
+          <div class="form-group">
+            <label class="field-label">Select Your Role</label>
+            <div class="method-grid" id="roleGrid">
+              <div class="method-card selected" data-role="DONOR">
+                <span class="method-icon">🤝</span>
+                <span class="method-title">Donor</span>
+                <span class="caption" style="font-size: 10px; margin-top: 2px;">Support causes</span>
+              </div>
+              <div class="method-card" data-role="VOLUNTEER">
+                <span class="method-icon">🙋‍♂️</span>
+                <span class="method-title">Volunteer</span>
+                <span class="caption" style="font-size: 10px; margin-top: 2px;">Offer skills</span>
+              </div>
+              <div class="method-card" data-role="BENEFICIARY">
+                <span class="method-icon">🤲</span>
+                <span class="method-title">Beneficiary</span>
+                <span class="caption" style="font-size: 10px; margin-top: 2px;">Request aid</span>
+              </div>
+              <div class="method-card" data-role="EVENT_MANAGER">
+                <span class="method-icon">📋</span>
+                <span class="method-title">Event Manager</span>
+                <span class="caption" style="font-size: 10px; margin-top: 2px;">Plan campaigns</span>
+              </div>
+              <div class="method-card" data-role="BENEFICIARY_MANAGER">
+                <span class="method-icon">⚖️</span>
+                <span class="method-title">Aid Manager</span>
+                <span class="caption" style="font-size: 10px; margin-top: 2px;">Allocate aid</span>
+              </div>
+            </div>
+            <input type="hidden" id="selectedRole" name="role" value="DONOR">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <!-- Full Name -->
+            <div class="form-group">
+              <label class="field-label" for="name">Full Name</label>
+              <input type="text" id="name" name="name" class="text-field" placeholder="e.g. Sara Ahmed" required>
+              <div id="nameError" class="error-text">Please enter your full name.</div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="form-group">
+              <label class="field-label" for="contactInfo">Contact Info / Email</label>
+              <input type="text" id="contactInfo" name="contactInfo" class="text-field" placeholder="sara@example.com" required>
+              <div id="contactError" class="error-text">Please enter a valid email or phone number.</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <!-- Password -->
+            <div class="form-group">
+              <label class="field-label" for="password">Password</label>
+              <div class="input-wrapper">
+                <input type="password" id="password" name="password" class="password-field" placeholder="Min. 6 characters" required>
+                <button type="button" id="togglePasswordBtn" class="input-icon-btn" title="Toggle visibility">👁️</button>
+              </div>
+              <div id="passwordError" class="error-text">Password must be at least 6 characters.</div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+              <label class="field-label" for="confirmPassword">Confirm Password</label>
+              <div class="input-wrapper">
+                <input type="password" id="confirmPassword" name="confirmPassword" class="password-field" placeholder="Re-type password" required>
+              </div>
+              <div id="confirmPasswordError" class="error-text">Passwords do not match.</div>
+            </div>
+          </div>
+
+          <!-- Dynamic Section: Volunteer Specific Fields -->
+          <div id="volunteerFields" class="fade-in" style="display: none; background: var(--athar-surface-alt); border: 1px solid var(--athar-border); border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+            <h3 class="h3" style="font-size: 15px; margin-bottom: 12px; color: var(--athar-navy);">Volunteer Profile Information</h3>
+            
+            <div class="form-group">
+              <label class="field-label">Your Skills</label>
+              <div class="chip-group" id="skillsChips">
+                <div class="chip-button" data-value="First Aid & Medical">First Aid & Medical</div>
+                <div class="chip-button" data-value="Teaching & Tutoring">Teaching & Tutoring</div>
+                <div class="chip-button" data-value="Logistics & Transport">Logistics & Transport</div>
+                <div class="chip-button" data-value="Event Coordination">Event Coordination</div>
+                <div class="chip-button" data-value="IT & Social Media">IT & Social Media</div>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="field-label">Availability & Preferences</label>
+              <div class="chip-group" id="preferencesChips">
+                <div class="chip-button" data-value="Weekends">Weekends</div>
+                <div class="chip-button" data-value="Weekdays">Weekdays</div>
+                <div class="chip-button" data-value="Field / On-Site">Field / On-Site</div>
+                <div class="chip-button" data-value="Remote / Online">Remote / Online</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group" style="margin-top: 16px;">
+            <button type="submit" id="submitBtn" class="btn-primary btn-block">
+              <span>Register Account</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="divider"></div>
+
+        <!-- Login Prompt -->
+        <div style="text-align: center;">
+          <p class="body-text">
+            Already have an account? 
+            <a href="login.html" style="color: var(--athar-navy-light); font-weight: 700; text-decoration: none;">Sign in here</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <span id="toastIcon">ℹ️</span>
+    <span id="toastMsg" class="body-text"></span>
+  </div>
+
+  <script src="js/signup.js"></script>
+</body>
+</html>

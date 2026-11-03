@@ -5,8 +5,10 @@ import com.nonprofit.factory.payment.CheckPaymentCreator;
 import com.nonprofit.factory.payment.OnlinePaymentCreator;
 import com.nonprofit.factory.payment.PaymentCreator;
 import com.nonprofit.factory.payment.PaymentException;
+import com.nonprofit.model.Donor;
 import com.nonprofit.model.Receipt;
 import com.nonprofit.service.DonationService;
+import com.nonprofit.util.UserSession;
 import com.nonprofit.view.Toast;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -21,13 +23,14 @@ import org.kordamp.ikonli.javafx.FontIcon;
  * Controller for money-donation.fxml.
  * Acts as the "Application" of the Factory Method pattern: it is the only
  * place that picks a concrete PaymentCreator, based on the user's choice.
+ * Donor identity comes from {@link UserSession} (set at login) rather than
+ * from manual text-field input.
  */
 public class MoneyDonationController {
 
-    @FXML private TextField donorNameField;
-    @FXML private TextField contactField;
+    @FXML private Label sessionDonorLabel;
+
     @FXML private TextField amountField;
-    @FXML private Label donorNameError;
     @FXML private Label amountError;
 
     @FXML private ToggleGroup paymentMethodGroup;
@@ -55,8 +58,19 @@ public class MoneyDonationController {
 
     private final DonationService donationService = new DonationService();
 
+    /** The authenticated donor for this session. */
+    private Donor sessionDonor;
+
     @FXML
     private void initialize() {
+        // Resolve the logged-in donor
+        sessionDonor = UserSession.getCurrentDonor();
+        String displayName = sessionDonor != null ? sessionDonor.getName() : "Guest";
+        if (sessionDonorLabel != null) {
+            sessionDonorLabel.setText("Donating as: " + displayName);
+        }
+        summaryDonor.setText(displayName);
+
         // Show only the fields of the selected payment method
         showWhen(checkDetailsBox, checkOption.selectedProperty().get());
         showWhen(onlineDetailsBox, onlineOption.selectedProperty().get());
@@ -64,14 +78,12 @@ public class MoneyDonationController {
         onlineOption.selectedProperty().addListener((obs, was, is) -> showWhen(onlineDetailsBox, is));
 
         // Messages take no space while empty
-        for (Label label : new Label[]{donorNameError, amountError, methodError, paymentErrorBanner}) {
+        for (Label label : new Label[]{amountError, methodError, paymentErrorBanner}) {
             label.managedProperty().bind(label.textProperty().isNotEmpty());
             label.visibleProperty().bind(label.managedProperty());
         }
 
         // Live summary
-        donorNameField.textProperty().addListener((obs, was, is) ->
-                summaryDonor.setText(is.isBlank() ? "—" : is.trim()));
         amountField.textProperty().addListener((obs, was, is) -> updateTotal());
         paymentMethodGroup.selectedToggleProperty().addListener((obs, was, is) -> {
             summaryMethod.setText(is == null ? "Not selected" : ((ToggleButton) is).getText());
@@ -80,10 +92,7 @@ public class MoneyDonationController {
             }
         });
 
-        // Validate when leaving a field
-        donorNameField.focusedProperty().addListener((obs, was, is) -> {
-            if (!is) validateDonorName();
-        });
+        // Validate when leaving the amount field
         amountField.focusedProperty().addListener((obs, was, is) -> {
             if (!is && !amountField.getText().isBlank()) validateAmount();
         });
@@ -99,14 +108,15 @@ public class MoneyDonationController {
     private void onDonate() {
         paymentErrorBanner.setText("");
 
-        boolean valid = validateDonorName() & validateAmount() & validateMethod();
+        boolean valid = validateAmount() & validateMethod();
         if (!valid) {
             return;
         }
 
-        String donorName = donorNameField.getText().trim();
-        String contact = contactField.getText().trim();
-        double amount = Double.parseDouble(amountField.getText().trim());
+        // Use the session donor's name and contact info
+        String donorName = sessionDonor != null ? sessionDonor.getName() : "Guest";
+        String contact   = sessionDonor != null ? sessionDonor.getContactInfo() : "";
+        double amount    = Double.parseDouble(amountField.getText().trim());
         PaymentCreator creator = createPaymentCreator();
 
         Task<Receipt> task = new Task<>() {
@@ -156,12 +166,6 @@ public class MoneyDonationController {
     }
 
     // ---------- Validation ----------
-
-    private boolean validateDonorName() {
-        boolean ok = !donorNameField.getText().isBlank();
-        markField(donorNameField, donorNameError, ok ? "" : "Full name is required.");
-        return ok;
-    }
 
     private boolean validateAmount() {
         String error = "";
@@ -251,13 +255,12 @@ public class MoneyDonationController {
     }
 
     private void clearForm() {
-        for (TextField field : new TextField[]{donorNameField, contactField, amountField,
-                checkNumberField, bankNameField, cardHolderField, cardNumberField, expiryField, cvvField}) {
+        for (TextField field : new TextField[]{amountField,
+                checkNumberField, bankNameField, cardHolderField, cardNumberField, expiryField}) {
             field.clear();
         }
-        donorNameField.getStyleClass().remove("invalid");
+        cvvField.clear();
         amountField.getStyleClass().remove("invalid");
-        donorNameError.setText("");
         amountError.setText("");
         paymentMethodGroup.selectToggle(null);
     }

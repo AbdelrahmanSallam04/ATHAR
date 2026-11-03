@@ -26,13 +26,22 @@ public class InKindDonationService {
     }
 
     /**
-     * Retrieves the current donor from the session, or from the database.
+     * Retrieves the current donor from the session (with addresses loaded from DB),
+     * or falls back to the latest donor in the database.
      */
     public Donor getActiveDonor() {
-        if (UserSession.getCurrentDonor() != null) {
-            return UserSession.getCurrentDonor();
+        Donor current = UserSession.getCurrentDonor();
+
+        // If logged in, re-fetch from DB so Hibernate-managed addresses are available
+        if (current != null && current.getId() != null) {
+            Donor fresh = donorRepository.findById(current.getId()).orElse(null);
+            if (fresh != null) {
+                UserSession.setCurrentDonor(fresh);
+                return fresh;
+            }
         }
 
+        // Fallback: latest donor in the database (legacy / no-auth path)
         Donor active = donorRepository.findLatestDonorWithAddresses();
         if (active == null) {
             active = new Donor("Registered Donor", "01000000000");

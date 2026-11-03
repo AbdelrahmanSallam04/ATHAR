@@ -1,5 +1,7 @@
 package com.nonprofit.controller;
 
+import com.nonprofit.model.Donor;
+import com.nonprofit.util.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,6 +21,7 @@ import java.util.Map;
 
 /**
  * Controller for shell.fxml: manages sidebar navigation and swaps views into the content area.
+ * Also displays the logged-in donor's name from {@link UserSession}.
  */
 public class ShellController {
 
@@ -36,9 +39,16 @@ public class ShellController {
     @FXML private Label brandMark;
     @FXML private ImageView watermark;
 
+    // Sidebar user info
+    @FXML private Label avatarLabel;
+    @FXML private Label sidebarUserName;
+    @FXML private Label sidebarUserRole;
+    @FXML private Label topbarAvatar;
+
     @FXML
     private void initialize() {
         loadLogo();
+        populateUserInfo();
 
         navGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (newToggle == null) {
@@ -49,6 +59,28 @@ public class ShellController {
             }
         });
         navGroup.selectToggle(donationsNav);
+    }
+
+    /**
+     * Fills the sidebar / topbar with the name of the currently logged-in donor.
+     */
+    private void populateUserInfo() {
+        Donor donor = UserSession.getCurrentDonor();
+        if (donor != null) {
+            String name = donor.getName() != null ? donor.getName() : "User";
+            String initial = name.isBlank() ? "?" : String.valueOf(name.charAt(0)).toUpperCase();
+            String role = donor.getRole() != null ? capitalize(donor.getRole().toLowerCase()) : "Donor";
+
+            sidebarUserName.setText(name);
+            sidebarUserRole.setText(role);
+            avatarLabel.setText(initial);
+            topbarAvatar.setText(initial);
+        } else {
+            sidebarUserName.setText("Guest");
+            sidebarUserRole.setText("Not signed in");
+            avatarLabel.setText("?");
+            topbarAvatar.setText("?");
+        }
     }
 
     private void showScreen(Toggle toggle) {
@@ -110,5 +142,9 @@ public class ShellController {
         } catch (Exception ignored) {
         }
     }
-}
 
+    private static String capitalize(String s) {
+        if (s == null || s.isEmpty()) return s;
+        return Character.toUpperCase(s.charAt(0)) + s.substring(1);
+    }
+}

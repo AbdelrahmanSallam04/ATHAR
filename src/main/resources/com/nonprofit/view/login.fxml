@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.nonprofit.controller.LoginController"
+           styleClass="login-root">
+
+    <!-- Background watermark -->
+    <VBox alignment="CENTER" spacing="0" styleClass="login-bg"/>
+
+    <!-- Center card -->
+    <VBox alignment="CENTER" spacing="32" maxWidth="440" styleClass="login-wrapper">
+
+        <!-- Logo / Brand -->
+        <VBox alignment="CENTER" spacing="8">
+            <ImageView fx:id="logoView" fitWidth="64" fitHeight="64" preserveRatio="true"
+                       visible="false" managed="false"/>
+            <Label fx:id="brandLabel" text="أثر" styleClass="login-brand"/>
+            <Label text="ATHAR – Non-Profit Management Platform" styleClass="caption" wrapText="true"/>
+        </VBox>
+
+        <!-- Tab toggle -->
+        <HBox styleClass="login-tab-bar" alignment="CENTER">
+            <fx:define>
+                <ToggleGroup fx:id="modeGroup"/>
+            </fx:define>
+            <ToggleButton fx:id="loginTab" text="Sign In" toggleGroup="$modeGroup"
+                          styleClass="login-tab" HBox.hgrow="ALWAYS" maxWidth="Infinity" selected="true"/>
+            <ToggleButton fx:id="signupTab" text="Create Account" toggleGroup="$modeGroup"
+                          styleClass="login-tab" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        </HBox>
+
+        <!-- === LOGIN FORM === -->
+        <VBox fx:id="loginPane" spacing="16" styleClass="card">
+
+            <Label text="Welcome back" styleClass="h3"/>
+            <Label text="Sign in with your contact info and password." styleClass="caption" wrapText="true"/>
+
+            <VBox spacing="6">
+                <Label text="Email or phone" styleClass="field-label"/>
+                <TextField fx:id="loginContactField" promptText="e.g. mona@example.com or 01012345678"/>
+                <Label fx:id="loginContactError" styleClass="error-text"/>
+            </VBox>
+
+            <VBox spacing="6">
+                <Label text="Password" styleClass="field-label"/>
+                <PasswordField fx:id="loginPasswordField" promptText="Your password"/>
+                <Label fx:id="loginPasswordError" styleClass="error-text"/>
+            </VBox>
+
+            <Label fx:id="loginGeneralError" styleClass="alert-banner, danger" wrapText="true">
+                <graphic><FontIcon iconLiteral="mdi2a-alert-circle-outline" iconSize="18"/></graphic>
+            </Label>
+
+            <Button fx:id="loginButton" text="Sign In" defaultButton="true" maxWidth="Infinity"
+                    styleClass="btn-accent" onAction="#onLogin"/>
+        </VBox>
+
+        <!-- === SIGNUP FORM === -->
+        <VBox fx:id="signupPane" spacing="16" styleClass="card" visible="false" managed="false">
+
+            <Label text="Create your account" styleClass="h3"/>
+            <Label text="Register as a donor to start making a difference." styleClass="caption" wrapText="true"/>
+
+            <VBox spacing="6">
+                <Label text="Full name *" styleClass="field-label"/>
+                <TextField fx:id="signupNameField" promptText="e.g. Mona Ahmed"/>
+                <Label fx:id="signupNameError" styleClass="error-text"/>
+            </VBox>
+
+            <VBox spacing="6">
+                <Label text="Email or phone *" styleClass="field-label"/>
+                <TextField fx:id="signupContactField" promptText="e.g. mona@example.com"/>
+                <Label fx:id="signupContactError" styleClass="error-text"/>
+            </VBox>
+
+            <VBox spacing="6">
+                <Label text="Password *" styleClass="field-label"/>
+                <PasswordField fx:id="signupPasswordField" promptText="At least 6 characters"/>
+                <Label fx:id="signupPasswordError" styleClass="error-text"/>
+            </VBox>
+
+            <VBox spacing="6">
+                <Label text="Confirm password *" styleClass="field-label"/>
+                <PasswordField fx:id="signupConfirmField" promptText="Repeat password"/>
+                <Label fx:id="signupConfirmError" styleClass="error-text"/>
+            </VBox>
+
+            <Label fx:id="signupGeneralError" styleClass="alert-banner, danger" wrapText="true">
+                <graphic><FontIcon iconLiteral="mdi2a-alert-circle-outline" iconSize="18"/></graphic>
+            </Label>
+
+            <Button fx:id="signupButton" text="Create Account" defaultButton="true" maxWidth="Infinity"
+                    styleClass="btn-accent" onAction="#onSignup"/>
+        </VBox>
+
+    </VBox>
+</StackPane>
+

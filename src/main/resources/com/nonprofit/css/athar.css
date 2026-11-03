@@ -723,3 +723,50 @@
 .table-row-cell:hover {
     -fx-background-color: -athar-gold-light;
 }
+
+
+/* ─── Login / Signup Screen ─────────────────────────────────────────────── */
+
+.login-root {
+    -fx-background-color: -athar-bg;
+}
+
+.login-wrapper {
+    -fx-padding: 40px 32px 32px 32px;
+    -fx-alignment: CENTER;
+}
+
+.login-brand {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -athar-navy;
+}
+
+/* Tab bar (Sign In / Create Account) */
+.login-tab-bar {
+    -fx-background-color: -athar-surface-alt;
+    -fx-background-radius: 8px;
+    -fx-padding: 4px;
+    -fx-spacing: 0px;
+}
+
+.login-tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6px;
+    -fx-text-fill: -athar-muted;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 20px;
+    -fx-cursor: hand;
+}
+
+.login-tab:selected {
+    -fx-background-color: -athar-surface;
+    -fx-text-fill: -athar-navy;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.10), 4, 0, 0, 1);
+}
+
+.login-tab:hover:!selected {
+    -fx-background-color: rgba(255,255,255,0.6);
+    -fx-text-fill: -athar-text;
+}

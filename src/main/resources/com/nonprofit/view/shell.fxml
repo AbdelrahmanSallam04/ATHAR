@@ -15,7 +15,7 @@
             <HBox styleClass="brand" alignment="CENTER_LEFT">
                 <StackPane>
                     <ImageView fx:id="logoImage" fitWidth="52" fitHeight="52" preserveRatio="true" smooth="true" visible="false" managed="false"/>
-                    <Label fx:id="brandMark" text="أثر" styleClass="brand-mark"/>
+                    <Label fx:id="brandMark" text="&#x623;&#x62B;&#x631;" styleClass="brand-mark"/>
                 </StackPane>
                 <VBox spacing="2" alignment="CENTER_LEFT">
                     <Label text="ATHAR" styleClass="brand-title"/>
@@ -62,12 +62,12 @@
             <Region VBox.vgrow="ALWAYS"/>
             <Region styleClass="sidebar-separator"/>
 
-            <!-- Placeholder until the login module provides the current user -->
+            <!-- Populated from UserSession by ShellController -->
             <HBox styleClass="sidebar-user" alignment="CENTER_LEFT">
-                <Label text="G" styleClass="avatar"/>
+                <Label fx:id="avatarLabel" text="?" styleClass="avatar"/>
                 <VBox>
-                    <Label text="Guest" styleClass="sidebar-user-name"/>
-                    <Label text="Not signed in" styleClass="sidebar-user-role"/>
+                    <Label fx:id="sidebarUserName" text="Loading…" styleClass="sidebar-user-name"/>
+                    <Label fx:id="sidebarUserRole" text="" styleClass="sidebar-user-role"/>
                 </VBox>
             </HBox>
         </VBox>
@@ -79,7 +79,7 @@
             <HBox styleClass="topbar">
                 <Label fx:id="pageTitle" styleClass="page-title"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Label text="G" styleClass="avatar"/>
+                <Label fx:id="topbarAvatar" text="?" styleClass="avatar"/>
             </HBox>
 
             <StackPane VBox.vgrow="ALWAYS">
