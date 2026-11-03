@@ -1,0 +1,37 @@
+/* =====================================================================
+   Donation types page (donation-types.fxml).
+   Uses the colour tokens defined in athar.css.
+   ===================================================================== */
+
+.type-card {
+    -fx-pref-width: 100px; /* equal widths when grown inside an HBox */
+    -fx-min-height: 300px;
+    -fx-spacing: 14px;
+    -fx-padding: 24px;
+}
+.type-card:hover {
+    -fx-border-color: -athar-gold;
+    -fx-effect: dropshadow(gaussian, rgba(27, 58, 107, 0.16), 18, 0, 0, 4);
+}
+
+/* Money card stands out with a gold top edge */
+.type-card-featured {
+    -fx-border-color: -athar-gold -athar-border -athar-border -athar-border;
+    -fx-border-width: 4px 1px 1px 1px;
+}
+
+.type-icon {
+    -fx-min-width: 60px;
+    -fx-min-height: 60px;
+    -fx-max-width: 60px;
+    -fx-max-height: 60px;
+    -fx-background-color: -athar-gold-light;
+    -fx-background-radius: 16px;
+}
+.type-icon .ikonli-font-icon { -fx-icon-color: -athar-gold-dark; }
+
+.type-point {
+    -fx-text-fill: -athar-text;
+    -fx-graphic-text-gap: 8px;
+}
+.type-point .ikonli-font-icon { -fx-icon-color: -athar-success; }

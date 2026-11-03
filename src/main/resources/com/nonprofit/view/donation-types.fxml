@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="root"
+      fx:controller="com.nonprofit.controller.DonationTypesController"
+      stylesheets="@../css/donation-types.css"
+      spacing="24">
+
+    <!-- ===== Page header ===== -->
+    <VBox spacing="4">
+        <Label text="Choose a Donation Type" styleClass="h2"/>
+        <Label text="Every gift counts, whatever its kind — كل خير .. أثر" styleClass="caption"/>
+    </VBox>
+
+    <!-- ===== Donation type cards ===== -->
+    <HBox spacing="24" alignment="TOP_LEFT">
+
+        <!-- Money -->
+        <VBox styleClass="card, type-card, type-card-featured" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT">
+                <StackPane styleClass="type-icon">
+                    <FontIcon iconLiteral="mdi2c-cash-multiple" iconSize="30"/>
+                </StackPane>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Available" styleClass="badge, badge-success"/>
+            </HBox>
+            <Label text="Money Donation" styleClass="h3"/>
+            <Label text="Give any amount by cash, check or online card. A receipt is issued right away."
+                   styleClass="caption" wrapText="true"/>
+            <VBox spacing="6">
+                <Label text="Cash, check or online card" styleClass="type-point">
+                    <graphic><FontIcon iconLiteral="mdi2c-check" iconSize="16"/></graphic>
+                </Label>
+                <Label text="Instant receipt" styleClass="type-point">
+                    <graphic><FontIcon iconLiteral="mdi2c-check" iconSize="16"/></graphic>
+                </Label>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Donate money" styleClass="btn-accent" maxWidth="Infinity"
+                    onAction="#onMoneyDonation">
+                <graphic><FontIcon iconLiteral="mdi2a-arrow-right" iconSize="18"/></graphic>
+            </Button>
+        </VBox>
+
+        <!-- In-kind (food, clothes, ...) -->
+        <VBox styleClass="card, type-card, type-card-featured" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT">
+                <StackPane styleClass="type-icon">
+                    <FontIcon iconLiteral="mdi2p-package-variant-closed" iconSize="30"/>
+                </StackPane>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Available" styleClass="badge, badge-success"/>
+            </HBox>
+            <Label text="In-Kind Donation" styleClass="h3"/>
+            <Label text="Donate essential goods such as clothing and nutritious food for families in need."
+                   styleClass="caption" wrapText="true"/>
+            <VBox spacing="6">
+                <Label text="Food: packaged or dry goods" styleClass="type-point">
+                    <graphic><FontIcon iconLiteral="mdi2c-check" iconSize="16"/></graphic>
+                </Label>
+                <Label text="Clothes: all sizes and seasons" styleClass="type-point">
+                    <graphic><FontIcon iconLiteral="mdi2c-check" iconSize="16"/></graphic>
+                </Label>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Donate items" styleClass="btn-accent" maxWidth="Infinity"
+                    onAction="#onInKindDonation">
+                <graphic><FontIcon iconLiteral="mdi2a-arrow-right" iconSize="18"/></graphic>
+            </Button>
+        </VBox>
+    </HBox>
+</VBox>

@@ -5,11 +5,19 @@ import com.nonprofit.model.Donation;
 import com.nonprofit.model.Donor;
 import com.nonprofit.model.MoneyDonation;
 import com.nonprofit.model.Receipt;
-import com.nonprofit.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import com.nonprofit.repository.MoneyDonationRepository;
 
 public class DonationService {
+
+    private final MoneyDonationRepository moneyDonationRepository;
+
+    public DonationService() {
+        this(new MoneyDonationRepository());
+    }
+
+    public DonationService(MoneyDonationRepository moneyDonationRepository) {
+        this.moneyDonationRepository = moneyDonationRepository;
+    }
 
     /**
      * Processes the payment through the given creator, then saves the donation.
@@ -23,22 +31,16 @@ public class DonationService {
         donation.setPaymentCreator(creator);
 
         Receipt receipt = donation.processDonation();
-        save(donation);
+        moneyDonationRepository.save(donation);
         return receipt;
     }
 
     /** Saves the donation (and its donor, if new) in one transaction. */
     public void save(Donation donation) {
-        Transaction tx = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            session.persist(donation);
-            tx.commit();
-        } catch (RuntimeException e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-            throw e;
+        if (donation instanceof MoneyDonation moneyDonation) {
+            moneyDonationRepository.save(moneyDonation);
+        } else {
+            moneyDonationRepository.saveDonation(donation);
         }
     }
 }
