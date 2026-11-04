@@ -4,8 +4,7 @@ import com.nonprofit.model.*;
 import com.nonprofit.repository.UserRepository;
 import com.nonprofit.util.SecurityUtil;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
 
 /**
  * Service layer handling Authentication and Signup CRUD business logic.
@@ -14,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final Map<String, UserSession> activeSessions = new ConcurrentHashMap<>();
 
     public AuthService() {
         this.userRepository = new UserRepository();
@@ -73,9 +71,13 @@ public class AuthService {
     }
 
     /**
-     * Authenticates an existing user and issues an active session token.
+     * Authenticates an existing user by verifying credentials.
+     *
+     * @param contactInfo   the email or phone number
+     * @param plainPassword the plain text password
+     * @return the authenticated User entity
      */
-    public UserSession authenticate(String contactInfo, String plainPassword) {
+    public User authenticate(String contactInfo, String plainPassword) {
         if (contactInfo == null || plainPassword == null) {
             throw new IllegalArgumentException("Contact info and password are required.");
         }
@@ -88,28 +90,6 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid contact info or password.");
         }
 
-        String token = UUID.randomUUID().toString();
-        UserSession session = new UserSession(token, user.getId(), user.getName(), user.getContactInfo(), user.getRole());
-        activeSessions.put(token, session);
-        return session;
-    }
-
-    public void logout(String sessionToken) {
-        if (sessionToken != null) {
-            activeSessions.remove(sessionToken);
-        }
-    }
-
-    public Optional<UserSession> getSession(String sessionToken) {
-        if (sessionToken == null) {
-            return Optional.empty();
-        }
-        return Optional.ofNullable(activeSessions.get(sessionToken));
-    }
-
-    /**
-     * Session record holding authenticated user details in-memory.
-     */
-    public record UserSession(String token, Long userId, String name, String contactInfo, String role) {
+        return user;
     }
 }

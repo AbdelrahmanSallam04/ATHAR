@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +21,7 @@ import java.util.regex.Pattern;
 public class AuthController implements HttpHandler {
 
     private final AuthService authService;
+    private final Map<String, User> webSessions = new ConcurrentHashMap<>();
 
     public AuthController(AuthService authService) {
         this.authService = authService;
@@ -100,16 +102,18 @@ public class AuthController implements HttpHandler {
         String password = (String) json.get("password");
 
         try {
-            AuthService.UserSession session = authService.authenticate(contactInfo, password);
-            String roleSlug = session.role().toLowerCase().replace('_', '-');
+            User user = authService.authenticate(contactInfo, password);
+            String token = UUID.randomUUID().toString();
+            webSessions.put(token, user);
+            String roleSlug = user.getRole().toLowerCase().replace('_', '-');
             String redirectUrl = "/stubs/" + roleSlug + "-dashboard.html";
 
             // Set session token in response header and JSON
-            exchange.getResponseHeaders().add("Set-Cookie", "sessionToken=" + session.token() + "; Path=/; HttpOnly");
+            exchange.getResponseHeaders().add("Set-Cookie", "sessionToken=" + token + "; Path=/; HttpOnly");
 
             String responseJson = String.format(
                     "{\"success\":true,\"token\":\"%s\",\"userId\":%d,\"name\":\"%s\",\"contactInfo\":\"%s\",\"role\":\"%s\",\"redirectUrl\":\"%s\"}",
-                    session.token(), session.userId(), escapeJson(session.name()), escapeJson(session.contactInfo()), session.role(), redirectUrl
+                    token, user.getId(), escapeJson(user.getName()), escapeJson(user.getContactInfo()), user.getRole(), redirectUrl
             );
             sendJsonResponse(exchange, 200, responseJson);
         } catch (IllegalArgumentException e) {
@@ -120,7 +124,7 @@ public class AuthController implements HttpHandler {
     private void handleLogout(HttpExchange exchange) throws IOException {
         String token = extractSessionToken(exchange);
         if (token != null) {
-            authService.logout(token);
+            webSessions.remove(token);
         }
         exchange.getResponseHeaders().add("Set-Cookie", "sessionToken=; Path=/; Max-Age=0; HttpOnly");
         sendJsonResponse(exchange, 200, "{\"success\":true,\"message\":\"Logged out successfully\"}");
@@ -128,13 +132,12 @@ public class AuthController implements HttpHandler {
 
     private void handleMe(HttpExchange exchange) throws IOException {
         String token = extractSessionToken(exchange);
-        Optional<AuthService.UserSession> sessionOpt = authService.getSession(token);
+        User user = token != null ? webSessions.get(token) : null;
 
-        if (sessionOpt.isPresent()) {
-            AuthService.UserSession s = sessionOpt.get();
+        if (user != null) {
             String responseJson = String.format(
                     "{\"authenticated\":true,\"userId\":%d,\"name\":\"%s\",\"contactInfo\":\"%s\",\"role\":\"%s\"}",
-                    s.userId(), escapeJson(s.name()), escapeJson(s.contactInfo()), s.role()
+                    user.getId(), escapeJson(user.getName()), escapeJson(user.getContactInfo()), user.getRole()
             );
             sendJsonResponse(exchange, 200, responseJson);
         } else {

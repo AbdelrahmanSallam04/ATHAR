@@ -1,6 +1,7 @@
 package com.nonprofit.controller;
 
 import com.nonprofit.model.Donor;
+import com.nonprofit.model.User;
 import com.nonprofit.service.AuthService;
 import com.nonprofit.util.UserSession;
 import javafx.application.Platform;
@@ -105,16 +106,16 @@ public class LoginController {
         loginButton.setDisable(true);
         loginButton.setText("Signing in…");
 
-        Task<AuthService.UserSession> task = new Task<>() {
+        Task<User> task = new Task<>() {
             @Override
-            protected AuthService.UserSession call() {
+            protected User call() {
                 return authService.authenticate(contact, password);
             }
         };
 
         task.setOnSucceeded(e -> {
-            AuthService.UserSession session = task.getValue();
-            storeSessionAndProceed(session);
+            User user = task.getValue();
+            storeSessionAndProceed(user);
         });
 
         task.setOnFailed(e -> {
@@ -161,12 +162,12 @@ public class LoginController {
         signupButton.setDisable(true);
         signupButton.setText("Creating account…");
 
-        Task<AuthService.UserSession> task = new Task<>() {
+        Task<User> task = new Task<>() {
             @Override
-            protected AuthService.UserSession call() {
+            protected User call() {
                 // Register the new donor
                 authService.registerUser(name, contact, pass, "DONOR", null, null);
-                // Then authenticate to get a session
+                // Then authenticate to get the authenticated user
                 return authService.authenticate(contact, pass);
             }
         };
@@ -190,12 +191,15 @@ public class LoginController {
     /**
      * Stores the authenticated user in {@link UserSession} and opens the main shell.
      */
-    private void storeSessionAndProceed(AuthService.UserSession session) {
-        // Populate the JavaFX UserSession so all downstream screens can read the donor
-        Donor donor = new Donor(session.name(), session.contactInfo());
-        donor.setId(session.userId());
-        donor.setRole(session.role());
-        UserSession.setCurrentDonor(donor);
+    private void storeSessionAndProceed(User user) {
+        if (user instanceof Donor donor) {
+            UserSession.setCurrentDonor(donor);
+        } else {
+            Donor donor = new Donor(user.getName(), user.getContactInfo());
+            donor.setId(user.getId());
+            donor.setRole(user.getRole());
+            UserSession.setCurrentDonor(donor);
+        }
 
         Platform.runLater(this::openShell);
     }
